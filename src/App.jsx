@@ -4,7 +4,10 @@ import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const loginWithGoogle = () => {
+    window.open('http://localhost:5000/auth/google/callback','_self')
+  }
 
   return (
     <>
@@ -18,9 +21,12 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <form className='login-form'>
+          <button onClick={loginWithGoogle}>Signin with Google</button>
+          <br />
+          <br />
+          <a href="http://localhost:5000/auth/google/callback">Sign in google</a>
+        </form>
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
