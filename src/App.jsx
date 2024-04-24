@@ -1,39 +1,49 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import axios from 'axios'
+import cookieParser from 'cookie-parser'
+
+
+
 
 function App() {
-  
-  const loginWithGoogle = () => {
-    window.open('http://localhost:5000/auth/google/callback','_self')
+
+  console.log("HOME")
+
+  // const loginWithGoogle = () => {
+  //   window.open('http://localhost:5000/auth/google/callback', '_self')
+  // }
+
+  const logout = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+
+
+      const data = await res.json()
+      console.log("DATA : ", data)
+
+      if (data.error) {
+        console.log(data.error)
+      }
+
+      localStorage.removeItem('connect.sid')
+    } catch (error) {
+
+    }
   }
+
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className='text-center'>
+        <h1 className='text-6xl mt-40'>HOME PAGE</h1>
+        <button className="btn btn-error mt-5" onClick={logout}>LOGOUT</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <form className='login-form'>
-          <button onClick={loginWithGoogle}>Signin with Google</button>
-          <br />
-          <br />
-          <a href="http://localhost:5000/auth/google/callback">Sign in google</a>
-        </form>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
