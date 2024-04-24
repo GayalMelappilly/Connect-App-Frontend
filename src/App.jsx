@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import axios from 'axios'
 import cookieParser from 'cookie-parser'
@@ -10,31 +10,37 @@ function App() {
 
   console.log("HOME")
 
-  // const loginWithGoogle = () => {
-  //   window.open('http://localhost:5000/auth/google/callback', '_self')
-  // }
+  useEffect(() => {
+    // Extract user data from query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const userDataString = urlParams.get('userData');
+    if (userDataString) {
+        const userData = JSON.parse(userDataString);
+        console.log("USER : ",userData);
+    }
+}, []);
 
   const logout = async () => {
-    try {
-      const res = await fetch('http://localhost:5000/auth/logout', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
+    // try {
+    //   const res = await fetch('http://localhost:5000/auth/logout', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     }
+    //   })
 
 
-      const data = await res.json()
-      console.log("DATA : ", data)
+    //   const data = await res.json()
+    //   console.log("DATA : ", data)
 
-      if (data.error) {
-        console.log(data.error)
-      }
+    //   if (data.error) {
+    //     console.log(data.error)
+    //   }
 
-      localStorage.removeItem('connect.sid')
-    } catch (error) {
+    //   localStorage.removeItem('connect.sid')
+    // } catch (error) {
 
-    }
+    // }
   }
 
 

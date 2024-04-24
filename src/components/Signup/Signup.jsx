@@ -12,10 +12,6 @@ function Signup() {
 
   const handleClick = () => {
     window.open('http://localhost:5000/auth/google', '_self')
-    axios.get('http://localhost:5000/auth/success').then((data) => {
-      console.log("DATA : ",data)
-      navigate('/')
-    })
   }
 
   return (
