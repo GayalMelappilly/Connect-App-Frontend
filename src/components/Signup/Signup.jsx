@@ -1,29 +1,46 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Signup.css'
 import { UserContext } from '../../contexts/AuthContext'
 
 function Signup() {
 
+  const navigate = useNavigate()
+  const location = useLocation();
+
   const { userInfo, setUserInfo } = useContext(UserContext)
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    const fetchData = async () => {
+      const urlParams = new URLSearchParams(location.search);
+      const userDataString = urlParams.get('userData');
+
+      console.log("USER DATA STRING : ", userDataString)
+      
+      if (userDataString) {
+        try {
+          const userData = JSON.parse(userDataString);
+          console.log("USER DATA : ", userData)
+          if (userData) {
+            console.log("USER: ", userData);
+            setUserInfo(userData);
+            navigate('/');
+          }
+        } catch (error) {
+          console.error("Error parsing user data:", error);
+        }
+      }
+    };
+
+    fetchData();
+  }, [navigate, location.search]);
 
   const handleClick = () => {
-    window.open('http://localhost:5000/auth/google', '_self')
-  }
+    window.location.href = 'http://localhost:5000/auth/google';
+  };
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const userDataString = urlParams.get('userData');
-    if (userDataString) {
-      const userData = JSON.parse(userDataString);
-      console.log("USER : ", userData);
-      setUserInfo(userData)
-      navigate('/')
-    }
-  }, []);
+  
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-slate-900 px-10">

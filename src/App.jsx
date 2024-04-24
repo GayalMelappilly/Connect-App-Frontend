@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home/Home.jsx'
 import Login from './components/Login/Login.jsx'
 import Signup from './components/Signup/Signup.jsx'
+import { UserContext } from './contexts/AuthContext.jsx'
 
-function App(){
+function App() {
+
+  const { userInfo, setUserInfo } = useContext(UserContext)
+  console.log("USERINFO : ",userInfo)
+
   return (
     <div>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={ userInfo ? <Home /> : <Signup />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>

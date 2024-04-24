@@ -25,11 +25,7 @@ function Sidebar(props) {
     }, [userInfo])
 
     const HandleLogout = () => {
-        axios.post('http://localhost:3001/connect/logout', {}, { withCredentials: true }).then((response) => {
-            console.log(response.data)
-            setCurrentUser(null)
-            navigate('/login')
-        })
+        console.log('LOGOUT')
     }
 
     useEffect(() => {
@@ -61,7 +57,7 @@ function Sidebar(props) {
                     </div>
                 </div>
                 <div className='flex items-center justify-between p-2 mt-2 cursor-pointer'>
-                    <button className='text-sm bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600' onClick={HandleLogout}>Logout</button>
+                    <button className='text-sm bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600' onClick={()=>HandleLogout}>Logout</button>
                 </div>
             </div>}
 
