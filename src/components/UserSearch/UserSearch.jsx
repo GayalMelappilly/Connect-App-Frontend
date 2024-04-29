@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { CiSearch } from 'react-icons/ci'
 
 const UserSearch = () => {
 
@@ -15,7 +16,15 @@ const UserSearch = () => {
 
     return (
         <div className='absolute'>
-            <input type="search" name="q" className="py-2 text-sm text-white bg-transparent rounded-md pl-10 focus:outline-none " placeholder="Search for username" autoComplete="off" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+            <div className="relative text-gray-600 focus-within:text-gray-400 ">
+                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                    <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
+                        <CiSearch size={20} />
+                    </button>
+                </span>
+                <input type="search" name="q" className="py-2 text-sm text-white bg-transparent rounded-md pl-10 focus:outline-none placeholder-marquee" placeholder="Search for user" autoComplete="off" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+            </div>
+            <hr />
             {user && <div className='absolute w-full'>
                 <div className='w-full h-full bg-transparent rounded-md'>
                     {username && <div className='w-full h-full overflow-y-scroll mt-5'>
