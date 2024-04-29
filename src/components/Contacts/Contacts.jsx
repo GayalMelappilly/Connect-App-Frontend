@@ -3,7 +3,7 @@ import { CiSearch } from 'react-icons/ci'
 
 function Contacts() {
     return (
-        <div className="m-2 w-full p-3 rounded-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0px_0px_10px_1px_#2d3748]    max-md:w-auto max-md:h-5/6">
+        <div className="m-2 w-3/6 p-3 rounded-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0px_0px_10px_1px_#2d3748]    max-md:w-auto max-md:h-5/6">
             <div className="relative text-gray-600 focus-within:text-gray-400 ">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                     <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
