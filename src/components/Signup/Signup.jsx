@@ -3,7 +3,6 @@ import axios from 'axios'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Signup.css'
 import { StatusContext } from '../../contexts/AuthContext'
-import useCookies from '../../hooks/useCookies'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 
 function Signup() {
