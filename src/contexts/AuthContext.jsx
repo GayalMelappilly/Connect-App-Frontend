@@ -1,12 +1,12 @@
 import { createContext, useState } from "react";
 
-export const UserContext = createContext(null)
+export const StatusContext = createContext(null)
 
-export const UserContextProvider = ({children}) => {
-    const [userInfo, setUserInfo] = useState(false)
+export const StatusContextProvider = ({children}) => {
+    const [status, setStatus] = useState(false)
     return (
-        <UserContext.Provider value={{userInfo, setUserInfo}}>
+        <StatusContext.Provider value={{status, setStatus}}>
             {children}
-        </UserContext.Provider>
+        </StatusContext.Provider>
     )
 }

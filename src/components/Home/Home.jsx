@@ -4,12 +4,16 @@ import Contacts from '../Contacts/Contacts';
 import Message from '../Message/Message';
 import Sidebar from '../Sidebar/Sidebar';
 import useCookies from '../../hooks/useCookies';
-import { UserContext } from '../../contexts/AuthContext';
+import { StatusContext } from '../../contexts/AuthContext';
+import { UserInfoContext } from '../../contexts/UserInfoContext';
 
 function Home() {
 
-    const { userInfo, setUserInfo } = useContext(UserContext)
+    const { status, setStatus } = useContext(StatusContext)
+    const { userInfo, setUserInfo } = useContext(UserInfoContext)
     const [user, setUser] = useState({})
+
+    
 
     
 

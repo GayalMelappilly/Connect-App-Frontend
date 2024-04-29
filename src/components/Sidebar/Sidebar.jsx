@@ -4,7 +4,8 @@ import { IoMdSettings } from 'react-icons/io'
 import { IoAdd } from 'react-icons/io5'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { UserContext } from '../../contexts/AuthContext';
+import { StatusContext } from '../../contexts/AuthContext';
+import { UserInfoContext } from '../../contexts/UserInfoContext'
 
 function Sidebar(props) {
 
@@ -16,24 +17,25 @@ function Sidebar(props) {
     const [user, setUser] = useState(null)
     const [currentUser, setCurrentUser] = useState(null)
 
-    const { userInfo, setUserInfo } = useContext(UserContext)
+    const { status, setStatus } = useContext(StatusContext)
+    const { userInfo, setUserInfo } = useContext(UserInfoContext)
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log("INFO : ", userInfo)
-    }, [userInfo])
+        console.log("INFO : ", status)
+    }, [status])
 
     const HandleLogout = () => {
         console.log("CLICKED")
+        setStatus(false)
         document.cookie = `userData=;  Max-Age=-99999999;`;
-        console.log("LOGOUT SUCCESSFUL.")
+        console.log("LOGOUT SUCCESSFUL.", status)
     }
 
     useEffect(() => {
-        setCurrentUser(props.userInfo)
-        console.log('PROPS : ' + JSON.stringify(currentUser, null, 2))
-    }, [props.userInfo])
+        console.log("USER INFO IN HOME : ", userInfo)
+    }, [userInfo])
 
     return (
         <div className={`${optionClick ? 'w-11/12' : 'w-2/12'}  transition-all ease-in-out duration-200 bg-opacity-80 bg-center m-2 rounded-lg p-5  backdrop-blur-sm shadow-[0px_0px_10px_1px_#2d3748] max-md:w-0 max-lg:hidden`}>
@@ -44,12 +46,12 @@ function Sidebar(props) {
                             <div className='flex items-center'>
                                 <div class="avatar">
                                     <div class="w-14 rounded-lg">
-                                        {/* <img src={userInfo.image} /> */}
+                                        <img src={userInfo.image} />
                                     </div>
                                 </div>
-                                <div className='ml-2'>
-                                    <h1 className='text-lg text-white'></h1>
-                                    <p className='text-xl pl-5 text-slate-700'></p>
+                                <div className='ml-2 pl-3'>
+                                    <h1 className='text-xl text-white'>{userInfo.displayName}</h1>
+                                    <p className='text-md text-slate-700'>{userInfo.email}</p>
                                 </div>
                             </div>
                             {/* <div className='flex items-center'>
@@ -58,8 +60,11 @@ function Sidebar(props) {
                         </div>
                     </div>
                 </div>
-                <div className='flex items-center justify-between p-2 mt-2 cursor-pointer'>
-                    <button className='text-sm bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600' onClick={()=>HandleLogout}>Logout</button>
+                {/* <div className='flex items-center justify-between p-2 mt-2 cursor-pointer'>
+                    <button className='text-sm bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600' onClick={HandleLogout}>Logout</button>
+                </div> */}
+                <div className='relative'>
+                    <button className='text-sm bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600' onClick={HandleLogout}>Logout</button>
                 </div>
             </div>}
 
