@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import './Signup.css'
 import { UserContext } from '../../contexts/AuthContext'
+import useCookies from '../../hooks/useCookies'
 
 function Signup() {
 
@@ -11,36 +12,29 @@ function Signup() {
 
   const { userInfo, setUserInfo } = useContext(UserContext)
 
+  const getDate = () => {
+    const date = new Date() + (1000 * 60 * 60);
+    console.log("DATE : ", date)
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      const urlParams = new URLSearchParams(location.search);
-      const userDataString = urlParams.get('userData');
-
-      console.log("USER DATA STRING : ", userDataString)
-      
-      if (userDataString) {
-        try {
-          const userData = JSON.parse(userDataString);
-          console.log("USER DATA : ", userData)
-          if (userData) {
-            console.log("USER: ", userData);
-            setUserInfo(userData);
-            navigate('/');
-          }
-        } catch (error) {
-          console.error("Error parsing user data:", error);
-        }
-      }
-    };
-
-    fetchData();
-  }, [navigate, location.search]);
+    const urlEncodedString = document.cookie
+    if(urlEncodedString){
+        console.log("ERROR IN SIGNUP.JSX : COOKIE NOT FOUND")
+        const decodedString = decodeURIComponent(urlEncodedString);
+        const jsonSubstring = decodedString.substring(decodedString.indexOf("{"));
+        const userData = JSON.parse(jsonSubstring);
+        setUserInfo(true)
+        console.log("DATA JSON : ",userData);
+        navigate('/')
+    }
+})
 
   const handleClick = () => {
     window.location.href = 'http://localhost:5000/auth/google';
   };
 
-  
+
 
   return (
     <div className="flex h-screen w-full items-center justify-center bg-slate-900 px-10">

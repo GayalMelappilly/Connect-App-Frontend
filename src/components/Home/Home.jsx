@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Home.css'
 import Contacts from '../Contacts/Contacts';
 import Message from '../Message/Message';
 import Sidebar from '../Sidebar/Sidebar';
+import useCookies from '../../hooks/useCookies';
+import { UserContext } from '../../contexts/AuthContext';
 
 function Home() {
 
+    const { userInfo, setUserInfo } = useContext(UserContext)
     const [user, setUser] = useState({})
 
-    useEffect(() => {
-        console.log("COOKIE: ", document.cookie);
-    }, []);
+    
 
     return (
         <div id='chat' className="flex h-screen bg-cover bg-center w-full items-center justify-center px-32 py-10   max-md:px-24">

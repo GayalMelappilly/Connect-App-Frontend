@@ -25,7 +25,9 @@ function Sidebar(props) {
     }, [userInfo])
 
     const HandleLogout = () => {
-        console.log('LOGOUT')
+        console.log("CLICKED")
+        document.cookie = `userData=;  Max-Age=-99999999;`;
+        console.log("LOGOUT SUCCESSFUL.")
     }
 
     useEffect(() => {
@@ -42,12 +44,12 @@ function Sidebar(props) {
                             <div className='flex items-center'>
                                 <div class="avatar">
                                     <div class="w-14 rounded-lg">
-                                        <img src={userInfo.image} />
+                                        {/* <img src={userInfo.image} /> */}
                                     </div>
                                 </div>
                                 <div className='ml-2'>
                                     <h1 className='text-lg text-white'></h1>
-                                    <p className='text-xl pl-5 text-slate-700'>{userInfo.displayName}</p>
+                                    <p className='text-xl pl-5 text-slate-700'></p>
                                 </div>
                             </div>
                             {/* <div className='flex items-center'>
