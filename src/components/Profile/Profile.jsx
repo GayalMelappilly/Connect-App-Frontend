@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 import { StatusContext } from '../../contexts/AuthContext'
+import axios from 'axios'
 
 const Profile = () => {
 
@@ -8,6 +9,7 @@ const Profile = () => {
     const {status, setStatus} = useContext(StatusContext)
 
     const HandleLogout = () => {
+        axios.
         console.log("CLICKED")
         setStatus(false)
         document.cookie = `userData=;  Max-Age=-99999999;`;
