@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Home.css'
-import Contacts from '../../components/Contacts/Contacts';
-import Message from '../../components/Message/Message';
-import Sidebar from '../../components/Sidebar/Sidebar';
+import Contacts from '../Contacts/Contacts';
+import Message from '../Message/Message';
+import Sidebar from '../Sidebar/Sidebar';
 import useCookies from '../../hooks/useCookies';
 import { StatusContext } from '../../contexts/AuthContext';
 import { UserInfoContext } from '../../contexts/UserInfoContext';
