@@ -5,12 +5,13 @@ import axios from 'axios'
 
 const Profile = () => {
 
-    const {userInfo, setUserInfo} = useContext(UserInfoContext)
-    const {status, setStatus} = useContext(StatusContext)
+    const { userInfo, setUserInfo } = useContext(UserInfoContext)
+    const { status, setStatus } = useContext(StatusContext)
 
     const HandleLogout = () => {
-        axios.
-        console.log("CLICKED")
+        axios.get('http://localhost:5000/auth/logout').then((response) => {
+            console.log("RESPONSE : ", response.data)
+        })
         setStatus(false)
         document.cookie = `userData=;  Max-Age=-99999999;`;
         console.log("LOGOUT SUCCESSFUL.", status)
