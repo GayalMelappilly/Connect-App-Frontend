@@ -22,7 +22,7 @@ function Sidebar() {
             {addClick && <UserSearch />}
 
             <div className={`grid mx-auto h-full`}>
-                <div className={`${optionClick ? 'opacity-100' : 'opacity-0'} transition-all ease-in-out duration-100 right-4 absolute`}>
+                <div className={`${optionClick ? 'opacity-100 cursor-pointer' : 'opacity-0'} transition-all ease-in-out duration-100 right-4 absolute`}>
                     <BsArrowRightSquareFill size={25} className='fill-slate-200' onClick={()=>{
                         setOptionClick(false)
                         setProfileClick(false)
@@ -30,19 +30,19 @@ function Sidebar() {
                         setAddClick(false)
                     }}/>
                 </div>
-                <FaUser size={50} color='white' className={`${optionClick ? 'opacity-0' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} onClick={() => {
+                <FaUser size={50} color='white' className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} onClick={() => {
                     setOptionClick(!optionClick)
                     setProfileClick(optionClick ? false : true)
                     setAddClick(false)
                     setSettingsClick(false)
                 }} />
-                <IoMdSettings size={50} color='white' className={`${optionClick ? 'opacity-0' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} onClick={() => {
+                <IoMdSettings size={50} color='white' className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} onClick={() => {
                     setOptionClick(!optionClick)
                     setSettingsClick(optionClick ? false : true)
                     setAddClick(false)
                     setProfileClick(false)
                 }} />
-                <IoAdd size={50} color='white' className={`${optionClick ? 'opacity-0' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} onClick={() => {
+                <IoAdd size={50} color='white' className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} onClick={() => {
                     setOptionClick(!optionClick)
                     setAddClick(optionClick ? false : true)
                     setProfileClick(false)

@@ -1,21 +1,31 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
+import { UserInfoContext } from '../../contexts/UserInfoContext'
 
 const UserSearch = () => {
 
     const [username, setUsername] = useState('')
     const [user, setUser] = useState([])
 
+    const { userInfo } = useContext(UserInfoContext)
+
     useEffect(() => {
         axios.get(`http://localhost:5000/user/list?search=${username}`).then((response) => {
-            console.log("RESPONSE : ", response.data)
+            // console.log("RESPONSE : ", response.data)
             setUser(response.data)
         })
     }, [username])
 
+    const handleAddFriend = (userid) => {
+        axios.post(`http://localhost:5000/user/add-friend`,{senderId: userInfo._id, receiverId: userid}).then((response)=>{
+            console.log(response.data)
+        })
+        console.log(userid,' / ',userInfo._id)
+    }
+
     return (
-        <div className='absolute'>
+        <div className='absolute w-11/12'>
             <div className="relative text-gray-600 focus-within:text-gray-400 ">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                     <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
@@ -29,21 +39,15 @@ const UserSearch = () => {
                 <div className='w-full h-full bg-transparent rounded-md'>
                     {username && <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
-                            return <div className='w-full h-full flex items-center justify-between p-2 mt-2 hover:bg-gray-200 cursor-pointer' key={index}>
+                            return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
                                 <div className='flex items-center'>
                                     <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
                                     <div className='ml-2'>
                                         <h1 className='text-sm text-white'>{user.displayName}</h1>
                                         <p className='text-xs text-slate-700'>{user.email}</p>
                                     </div>
+                                    <button className='btn btn-outline btn-sm border-pink-600 text-slate-900 ml-5' onClick={()=>{handleAddFriend(user._id)}}>ADD</button>
                                 </div>
-                                {/* <div className='flex items-center'>
-                                    <button className='text-sm bg-blue-500 text-white rounded-md px-2 py-1'>Follow</button>
-                                    <button className='text-sm bg-blue-500 text-white rounded-md px-2 py-1 ml-2'>Message</button>
-                                    <button className='text-sm bg-blue-500 text-white rounded-md px-2 py-1 ml-2'>Block</button>
-                                    <button className='text-sm bg-blue-500 text-white rounded-md px-2 py-1 ml-2'>Report</button>
-                                    <button className='text-sm bg-blue-500 text-white rounded-md px-2 py-1 ml-2'>Delete</button>
-                                </div> */}
                             </div>
                         })}
                     </div>}
