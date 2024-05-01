@@ -21,7 +21,6 @@ function Signup() {
   useEffect(() => {
     const urlEncodedString = document.cookie
     if(urlEncodedString){
-        console.log("ERROR IN SIGNUP.JSX : COOKIE NOT FOUND")
         const decodedString = decodeURIComponent(urlEncodedString);
         const jsonSubstring = decodedString.substring(decodedString.indexOf("{"));
         const userData = JSON.parse(jsonSubstring);

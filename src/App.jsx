@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from './components/Home/Home.jsx' 
+import Home from './pages/Home/Home.jsx'
 import Login from './components/Login/Login.jsx'
 import Signup from './pages/Signup/Signup.jsx' 
 import { StatusContext } from './contexts/AuthContext.jsx'

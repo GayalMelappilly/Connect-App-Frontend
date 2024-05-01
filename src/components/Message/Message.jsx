@@ -16,7 +16,7 @@ function Message() {
             <div className='overflow-scroll h-5/6 rounded-lg p-5 backdrop-blur-sm'>
                 {text.map((msg, index) => {
                     return (
-                        <div>
+                        <div key={index}>
                             <SenderChat message={msg} />
                             <ReceiverChat />
                         </div>

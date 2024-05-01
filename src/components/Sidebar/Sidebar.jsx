@@ -43,32 +43,32 @@ function Sidebar() {
                     }} />
                 </div>
 
-                <div className='relative flex' onClick={() => {
+                <div className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} relative my-auto`} onClick={() => {
                     setOptionClick(!optionClick)
                     setProfileClick(optionClick ? false : true)
                     setAddClick(false)
                     setSettingsClick(false)
                 }}>
-                    <FaUser size={50} color='white' className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} />
+                    <FaUser size={50} color='white' className='transition-all ease-in-out duration-100 cursor-pointer m-auto' />
                 </div>
 
-                <div className='relative flex' onClick={() => {
+                <div className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} relative my-auto`} onClick={() => {
                     setOptionClick(!optionClick)
                     setSettingsClick(optionClick ? false : true)
                     setAddClick(false)
                     setProfileClick(false)
                 }}>
-                    <IoMdSettings size={50} color='white' className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} />
+                    <IoMdSettings size={50} color='white' className='transition-all ease-in-out duration-100 cursor-pointer m-auto' />
                 </div>
 
-                <div className='relative my-auto' onClick={() => {
+                <div className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} relative my-auto`} onClick={() => {
                     setOptionClick(!optionClick)
                     setAddClick(optionClick ? false : true)
                     setProfileClick(false)
                     setSettingsClick(false)
                 }}>
-                    <FaUserFriends size={50} color='white' className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-all ease-in-out duration-100 cursor-pointer m-auto`} />
-                    {reqCount && <div class={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} transition-all ease-in-out duration-100 absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900`}>{reqCount}</div>}
+                    <FaUserFriends size={50} color='white' className='transition-all ease-in-out duration-100 cursor-pointer m-auto' />
+                    {reqCount && <div className={`${optionClick ? 'opacity-0' : 'opacity-100 cursor-pointer'} transition-all ease-in duration-700 absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-600 border-2 border-none rounded-lg -top-2 -end-2`}>{reqCount}</div>}
                 </div>
 
             </div>

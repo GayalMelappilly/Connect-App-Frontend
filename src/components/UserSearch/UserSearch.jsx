@@ -1,12 +1,15 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
+import { IoIosCheckmark } from "react-icons/io";
+import { IoIosClose } from "react-icons/io";
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 
 const UserSearch = () => {
 
     const [username, setUsername] = useState('')
     const [friendReq, setFriendReq] = useState(null)
+    const [showReq, setShowReq] = useState(false)
     const [user, setUser] = useState([])
 
     const { userInfo } = useContext(UserInfoContext)
@@ -17,19 +20,28 @@ const UserSearch = () => {
         })
     }, [username])
 
-    useEffect(()=>{
-        axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response)=>{
-            // console.log("REQ LIST : ",response.data.incomingRequests)
-            console.log("REQ LIST : ",response.data)
+    useEffect(() => {
+        axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response) => {
+            // console.log("REQ LIST : ", response.data)
             setFriendReq(response.data)
         })
     })
 
     const handleAddFriend = (user) => {
-        axios.post(`http://localhost:5000/user/add-friend`,{senderDetails: userInfo, receiverDetails: user}).then((response)=>{
-            console.log(response.data)
+        axios.post(`http://localhost:5000/user/add-friend`, { senderDetails: userInfo, receiverDetails: user }).then((response) => {
+            // console.log(response.data)
         })
-        console.log(user._id,' / ',userInfo._id)
+        console.log(user._id, ' / ', userInfo._id)
+    }
+
+    const handleAccept = (user) => {
+        axios.post('http://localhost:5000/user/req-accept', {reqFrom : user, reqTo: userInfo}).then((data)=>{
+            console.log(data.data)
+        })
+    }
+
+    const handleDecline = (user) => {
+        axios.post('http://localhost:5000/user/req-decline', {reqFrom : user, reqTo: userInfo})
     }
 
     return (
@@ -43,23 +55,26 @@ const UserSearch = () => {
                 <input type="search" name="q" className="py-2 text-sm text-white bg-transparent rounded-md pl-10 focus:outline-none placeholder-marquee" placeholder="Search for user" autoComplete="off" value={username} onChange={(e) => { setUsername(e.target.value) }} />
             </div>
             <hr />
-            <button className='btn-sm btn-primary'>Friend Requests</button>
-            {/* {friendReq && <div> 
-                    <p className='text-white text-sm'>Friend Request</p>
-                    {friendReq.incomingRequests.map((user, index)=>{
-                        return <div className='w-full h-full flex items-center justify-between p-2 mt-2' key={index}>
-                            <div className='flex items-center'>
-                                <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
-                                <div className='ml-2'>
-                                    <h1 className='text-sm text-white'>{user.displayName}</h1>
-                                    <p className='text-xs text-slate-700'>{user.email}</p>
-                                </div>
+            <button className='btn btn-sm mt-2 btn-outline text-slate-300' onClick={() => setShowReq(!showReq)}>{showReq ? 'Hide' : 'Friend Requests'}</button>
+            {showReq && friendReq && <div>
+                {friendReq.incomingRequests.map((user, index) => {
+                    return <div className='w-full h-full flex items-center justify-between p-2 mt-2' key={index}>
+                        <div className='flex items-center'>
+                            <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
+                            <div className='ml-2'>
+                                <h1 className='text-sm text-white'>{user.displayName}</h1>
+                                <p className='text-xs text-slate-700'>{user.email}</p>
+                            </div>
+                            <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} ml-5`}>
+                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-green-600   hover:bg-green-600 hover:text-black' onClick={()=>handleAccept(user)}/>
+                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={()=>handleDecline(user)}/>
                             </div>
                         </div>
-                    })}
-                </div>} */}
+                    </div>
+                })}
+            </div>}
             {user && <div className='absolute w-full'>
-                <div className='w-full h-full bg-cyan-100 rounded-md'>
+                <div className='w-full h-fullrounded-md'>
                     {username && <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
                             return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
@@ -69,7 +84,7 @@ const UserSearch = () => {
                                         <h1 className='text-sm text-white'>{user.displayName}</h1>
                                         <p className='text-xs text-slate-700'>{user.email}</p>
                                     </div>
-                                    <button className='btn btn-outline btn-sm border-pink-600 text-slate-900 ml-5' onClick={()=>{handleAddFriend(user)}}>ADD</button>
+                                    <button className='btn btn-outline btn-sm border-pink-600 text-slate-900 ml-5' onClick={() => { handleAddFriend(user) }}>ADD</button>
                                 </div>
                             </div>
                         })}
