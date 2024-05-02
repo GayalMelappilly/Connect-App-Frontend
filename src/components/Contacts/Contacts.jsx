@@ -1,21 +1,26 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
+import { ContactContext } from '../../contexts/ContactContext'
 import axios from 'axios'
 
 function Contacts() {
 
-    const [contacts, setContacts] = useState()
-
     const { userInfo } = useContext(UserInfoContext)
+    const { contact } = useContext(ContactContext)
+
+    const [allContacts, setAllContacts] = useState([])
 
     useEffect(()=>{
-        axios.put('http://localhost:5000/user/contacts', {userId: userInfo._id}).then((response)=>{
-            if(response.data){
-                setContacts(response.data.contacts)
-            }
+        axios.post('http://localhost:5000/user/contacts', {userId: userInfo._id}).then((response)=>{
+            setAllContacts(response.data.contacts)
         })
-    },[])
+    })
+
+    useEffect(()=>{
+        console.log("CONTACT : ",contact)
+        setAllContacts(contact)
+    },[userInfo])
     
     return (
         <div className="m-2 w-3/6 p-3 rounded-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0px_0px_10px_1px_#2d3748]    max-md:w-auto max-md:h-5/6">
@@ -29,7 +34,7 @@ function Contacts() {
             </div>
             <hr />
             <div className="flex flex-col">
-                {contacts && contacts.map((contact, index)=>(
+                {allContacts && allContacts.map((contact, index)=>(
                     <div className='w-full h-full flex items-center justify-between p-2 mt-2' key={index}>
                         <div className='flex items-center'>
                             <img src={contact.image} alt="" className='w-10 h-10 rounded-full' />

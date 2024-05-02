@@ -5,14 +5,17 @@ import './index.css';
 import App from './App.jsx';
 import { StatusContextProvider } from './contexts/AuthContext.jsx';
 import { UserInfoContextProvider } from './contexts/UserInfoContext.jsx';
+import { ContactContextProvider } from './contexts/ContactContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <StatusContextProvider>
       <UserInfoContextProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ContactContextProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </ContactContextProvider>
       </UserInfoContextProvider>
     </StatusContextProvider>
   </React.StrictMode>

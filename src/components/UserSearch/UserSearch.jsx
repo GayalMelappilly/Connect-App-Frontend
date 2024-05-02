@@ -4,6 +4,7 @@ import { CiSearch } from 'react-icons/ci'
 import { IoIosCheckmark } from "react-icons/io";
 import { IoIosClose } from "react-icons/io";
 import { UserInfoContext } from '../../contexts/UserInfoContext'
+import { ContactContext } from '../../contexts/ContactContext';
 
 const UserSearch = () => {
 
@@ -13,6 +14,7 @@ const UserSearch = () => {
     const [user, setUser] = useState([])
 
     const { userInfo } = useContext(UserInfoContext)
+    const { setContact } = useContext(ContactContext)
 
     useEffect(() => {
         axios.get(`http://localhost:5000/user/list?search=${username}`).then((response) => {
@@ -32,21 +34,19 @@ const UserSearch = () => {
             // console.log(response.data)
         })
         console.log(user._id, ' / ', userInfo._id)
-        window.location.reload()
     }
 
-    const handleAccept = (e,user) => {
-        e.preventDefault()
-        axios.put('http://localhost:5000/user/req-accept', {reqFrom : user, reqTo: userInfo}).then((data)=>{
-            console.log(data.data)
+    const handleAccept = (user) => {
+        
+        axios.put('http://localhost:5000/user/req-accept', {reqFrom : user, reqTo: userInfo}).then((response)=>{
+            setContact(response.data.contacts)
         })  
-        window.location.reload()
     }
 
-    const handleDecline = (e,user) => {
-        e.preventDefault()
-        axios.put('http://localhost:5000/user/req-decline', {reqFrom : user, reqTo: userInfo}).then((data)=>{
-            console.log(data.data)
+    const handleDecline = (user) => {
+        
+        axios.put('http://localhost:5000/user/req-decline', {reqFrom : user, reqTo: userInfo}).then((response)=>{
+            console.log(response.data)
         })
     }
 
@@ -72,8 +72,8 @@ const UserSearch = () => {
                                 <p className='text-xs text-slate-700'>{user.email}</p>
                             </div>
                             <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} ml-5`}>
-                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-green-600   hover:bg-green-600 hover:text-black' onClick={(e)=>handleAccept(e,user)}/>
-                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={(e)=>handleDecline(e,user)}/>
+                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-green-600   hover:bg-green-600 hover:text-black' onClick={()=>handleAccept(user)}/>
+                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={()=>handleDecline(user)}/>
                             </div>
                         </div>
                     </div>
