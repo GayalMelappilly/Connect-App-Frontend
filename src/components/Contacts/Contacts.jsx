@@ -3,6 +3,7 @@ import { CiSearch } from 'react-icons/ci'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 import { ContactContext } from '../../contexts/ContactContext'
 import axios from 'axios'
+import { DivIcon } from 'leaflet'
 
 function Contacts() {
 
@@ -10,18 +11,23 @@ function Contacts() {
     const { contact } = useContext(ContactContext)
 
     const [allContacts, setAllContacts] = useState([])
+    const [selection, setSelection] = useState(null);
 
-    useEffect(()=>{
-        axios.post('http://localhost:5000/user/contacts', {userId: userInfo._id}).then((response)=>{
+    const handleClick = (index) => {
+        setSelection(index);
+    };
+
+    useEffect(() => {
+        axios.post('http://localhost:5000/user/contacts', { userId: userInfo._id }).then((response) => {
             setAllContacts(response.data.contacts)
         })
-    })
+    }, [userInfo])
 
-    useEffect(()=>{
-        console.log("CONTACT : ",contact)
+    useEffect(() => {
+        console.log("CONTACT : ", contact)
         setAllContacts(contact)
-    },[userInfo])
-    
+    }, [contact])
+
     return (
         <div className="m-2 w-3/6 p-3 rounded-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0px_0px_10px_1px_#2d3748]    max-md:w-auto max-md:h-5/6">
             <div className="relative text-gray-600 focus-within:text-gray-400 ">
@@ -33,16 +39,17 @@ function Contacts() {
                 <input type="search" name="q" className="py-2 text-sm text-white bg-transparent rounded-md pl-10 focus:outline-none focus:text-gray-900" placeholder="Search..." autoComplete="off" />
             </div>
             <hr />
+            <div className='h-2'></div>
             <div className="flex flex-col">
-                {allContacts && allContacts.map((contact, index)=>(
-                    <div className='w-full h-full flex items-center justify-between p-2 mt-2' key={index}>
-                        <div className='flex items-center'>
+                {allContacts && allContacts.map((contact, index) => (
+                    <div className={`w-full h-full flex items-center cursor-pointer justify-between p-2 mt-2 hover:bg-slate-700 hover:bg-opacity-20 rounded-lg ${selection === index ? 'bg-slate-600 bg-opacity-20' : ''}`} key={index} onClick={() => handleClick(index)} >
+                        <label className='flex items-center'>
                             <img src={contact.image} alt="" className='w-10 h-10 rounded-full' />
                             <div className='ml-2'>
                                 <h1 className='text-sm text-white'>{contact.displayName}</h1>
                                 <p className='text-xs text-slate-700'>{contact.email}</p>
                             </div>
-                        </div>
+                        </label>
                     </div>
                 ))}
             </div>

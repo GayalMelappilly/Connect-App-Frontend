@@ -27,7 +27,7 @@ const UserSearch = () => {
             // console.log("REQ LIST : ", response.data)
             setFriendReq(response.data)
         })
-    })
+    },[])
 
     const handleAddFriend = (user) => {
         axios.post(`http://localhost:5000/user/add-friend`, { senderDetails: userInfo, receiverDetails: user }).then((response) => {
@@ -37,14 +37,13 @@ const UserSearch = () => {
     }
 
     const handleAccept = (user) => {
-        
         axios.put('http://localhost:5000/user/req-accept', {reqFrom : user, reqTo: userInfo}).then((response)=>{
+            console.log("AFTER REQ ACC : ",response.data)
             setContact(response.data.contacts)
         })  
     }
 
     const handleDecline = (user) => {
-        
         axios.put('http://localhost:5000/user/req-decline', {reqFrom : user, reqTo: userInfo}).then((response)=>{
             console.log(response.data)
         })
