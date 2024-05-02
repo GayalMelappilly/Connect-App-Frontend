@@ -32,16 +32,22 @@ const UserSearch = () => {
             // console.log(response.data)
         })
         console.log(user._id, ' / ', userInfo._id)
+        window.location.reload()
     }
 
-    const handleAccept = (user) => {
-        axios.post('http://localhost:5000/user/req-accept', {reqFrom : user, reqTo: userInfo}).then((data)=>{
+    const handleAccept = (e,user) => {
+        e.preventDefault()
+        axios.put('http://localhost:5000/user/req-accept', {reqFrom : user, reqTo: userInfo}).then((data)=>{
+            console.log(data.data)
+        })  
+        window.location.reload()
+    }
+
+    const handleDecline = (e,user) => {
+        e.preventDefault()
+        axios.put('http://localhost:5000/user/req-decline', {reqFrom : user, reqTo: userInfo}).then((data)=>{
             console.log(data.data)
         })
-    }
-
-    const handleDecline = (user) => {
-        axios.post('http://localhost:5000/user/req-decline', {reqFrom : user, reqTo: userInfo})
     }
 
     return (
@@ -66,8 +72,8 @@ const UserSearch = () => {
                                 <p className='text-xs text-slate-700'>{user.email}</p>
                             </div>
                             <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} ml-5`}>
-                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-green-600   hover:bg-green-600 hover:text-black' onClick={()=>handleAccept(user)}/>
-                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={()=>handleDecline(user)}/>
+                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-green-600   hover:bg-green-600 hover:text-black' onClick={(e)=>handleAccept(e,user)}/>
+                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={(e)=>handleDecline(e,user)}/>
                             </div>
                         </div>
                     </div>

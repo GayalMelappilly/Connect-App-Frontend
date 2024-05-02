@@ -21,7 +21,9 @@ function Sidebar() {
 
     useEffect(() => {
         axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response) => {
-            setReqCount(response.data.incomingRequests.length)
+            if(response.data){
+                setReqCount(response.data.incomingRequests.length)
+            }
         })
     })
 
