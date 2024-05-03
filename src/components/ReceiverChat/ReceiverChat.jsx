@@ -3,8 +3,6 @@ import { UserInfoContext } from '../../contexts/UserInfoContext'
 
 const ReceiverChat = (props) => {
 
-    const { userInfo, setUserInfo } = useContext(UserInfoContext)
-
     return (
         <div className="items-start gap-2.5">
             <div className="chat chat-start">

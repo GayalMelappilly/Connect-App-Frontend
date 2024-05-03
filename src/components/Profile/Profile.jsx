@@ -5,16 +5,15 @@ import axios from 'axios'
 
 const Profile = () => {
 
-    const { userInfo, setUserInfo } = useContext(UserInfoContext)
+    const { userInfo } = useContext(UserInfoContext)
     const { status, setStatus } = useContext(StatusContext)
 
     const HandleLogout = () => {
-        axios.get('http://localhost:5000/auth/logout').then((response) => {
-            console.log("RESPONSE : ", response.data)
+        axios.get('http://localhost:5000/auth/logout').then(() => {
+            setStatus(false)
+            document.cookie = `userData=;  Max-Age=-99999999;`;
+            console.log("LOGOUT SUCCESSFUL.", status)
         })
-        setStatus(false)
-        document.cookie = `userData=;  Max-Age=-99999999;`;
-        console.log("LOGOUT SUCCESSFUL.", status)
     }
 
     return (
@@ -23,8 +22,8 @@ const Profile = () => {
                 <div className='w-full h-full overflow-y-scroll mt-5'>
                     <div className='w-full h-full flex items-center justify-between p-2 mt-2 cursor-pointer'>
                         <div className='flex items-center'>
-                            <div class="avatar">
-                                <div class="w-14 rounded-lg">
+                            <div className="avatar">
+                                <div className="w-14 rounded-lg">
                                     <img src={userInfo.image} />
                                 </div>
                             </div>

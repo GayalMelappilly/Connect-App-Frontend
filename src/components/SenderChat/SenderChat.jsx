@@ -3,8 +3,6 @@ import { UserInfoContext } from '../../contexts/UserInfoContext'
 
 const SenderChat = (props) => {
 
-    const { userInfo, setUserInfo } = useContext(UserInfoContext)
-
     return (
         <div className="chat chat-end">
             {/* <div className="chat-image avatar">

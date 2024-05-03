@@ -7,8 +7,7 @@ import { StatusContext } from './contexts/AuthContext.jsx'
 
 function App() {
 
-  const { status, setStatus } = useContext(StatusContext)
-  console.log("USERINFO : ",status)
+  const { status } = useContext(StatusContext)
 
   return (
     <div>

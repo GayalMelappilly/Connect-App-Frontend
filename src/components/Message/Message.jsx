@@ -14,19 +14,12 @@ function Message() {
     const { messageInfo } = useContext(MessageContext)
     
     useEffect(()=>{
-        console.log("MESSAGE INFO ON LOAD : ",messageInfo)
         if(messageInfo && messageInfo.messages){
             setMessage(messageInfo.messages)
         }
     },[messageInfo])
 
-    useEffect(() => {
-        console.log("MESSAGE INFO : ", message);
-    }, [message]);
-
     const handleSend = () => {
-        // setText([...text, message])
-        // setMessage('')
         axios.post('http://localhost:5000/message/send/', {userInfo, messageInfo, text}).then((response)=>{
             console.log(response.data)
         })
@@ -37,7 +30,6 @@ function Message() {
         <div className="w-full bg-opacity-80 m-2 rounded-lg p-5 backdrop-blur-sm shadow-[0px_0px_10px_1px_#2d3748] max-md:w-0 max-md:hidden">
             <div className='overflow-scroll h-5/6 rounded-lg p-5 backdrop-blur-sm'>
                 {message && message.map((msg, index) => {
-                    console.log("MSG!!!! : ",msg)
                     return (
                         <div key={index}>
                             {userInfo._id===msg.senderId ? <SenderChat message={msg.message} /> : <ReceiverChat message={msg.message} />}

@@ -1,6 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import axios from 'axios'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import './Signup.css'
 import { StatusContext } from '../../contexts/AuthContext'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
@@ -8,15 +7,9 @@ import { UserInfoContext } from '../../contexts/UserInfoContext'
 function Signup() {
 
   const navigate = useNavigate()
-  const location = useLocation();
 
-  const { status, setStatus } = useContext(StatusContext)
-  const { userInfo, setUserInfo } = useContext(UserInfoContext)
-
-  const getDate = () => {
-    const date = new Date() + (1000 * 60 * 60);
-    console.log("DATE : ", date)
-  }
+  const { setStatus } = useContext(StatusContext)
+  const { setUserInfo } = useContext(UserInfoContext)
 
   useEffect(() => {
     const urlEncodedString = document.cookie
@@ -26,7 +19,7 @@ function Signup() {
         const userData = JSON.parse(jsonSubstring);
         setStatus(true)
         setUserInfo(userData)
-        console.log("DATA JSON : ",userData);
+        // console.log("DATA JSON : ",userData);
         setStatus(userData)
         navigate('/')
     }

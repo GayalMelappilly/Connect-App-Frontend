@@ -17,7 +17,6 @@ function Contacts() {
     const handleClick = (index, contact) => {
         setSelection(index);
         axios.post('http://localhost:5000/message/get/', {senderId: userInfo._id, receiverId: contact._id}).then((response)=>{
-            console.log("ON LOAD MESSAGES : ",response.data)
             if(response.data && response.data.messages){
                 const receiverInfo = {
                     _id: contact._id,
@@ -32,7 +31,6 @@ function Contacts() {
             }
         })
     }
-    // console.log("CLICKED CONTACT : ", contact)
 
     useEffect(() => {
         axios.post('http://localhost:5000/user/contacts', { userId: userInfo._id }).then((response) => {
@@ -41,7 +39,6 @@ function Contacts() {
     }, [userInfo])
 
     useEffect(() => {
-        console.log("CONTACT : ", contact)
         setAllContacts(contact)
     }, [contact])
 
