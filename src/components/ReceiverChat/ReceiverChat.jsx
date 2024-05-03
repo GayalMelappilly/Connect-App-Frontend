@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 
-const ReceiverChat = () => {
+const ReceiverChat = (props) => {
 
     const { userInfo, setUserInfo } = useContext(UserInfoContext)
 
@@ -16,7 +16,7 @@ const ReceiverChat = () => {
                 <div className="chat-header">
                     <time className="text-xs opacity-80 text-white">12:45</time>
                 </div>
-                <div className="chat-bubble">Receiver message!</div>
+                <div className="chat-bubble">{props.message}</div>
                 <div className="chat-footer opacity-80 text-white">
                     Delivered
                 </div>

@@ -9,22 +9,30 @@ function Contacts() {
 
     const { userInfo } = useContext(UserInfoContext)
     const { contact } = useContext(ContactContext)
-    const { setMessageInfo } = useContext(MessageContext)
+    const { messageInfo, setMessageInfo } = useContext(MessageContext)
 
     const [allContacts, setAllContacts] = useState([])
     const [selection, setSelection] = useState(null);
 
     const handleClick = (index, contact) => {
         setSelection(index);
-        const receiverInfo = {
-            _id: contact._id,
-            name: contact.displayName,
-            email: contact.email,
-            image: contact.image
-        }
-        setMessageInfo(receiverInfo)
+        axios.post('http://localhost:5000/message/get/', {senderId: userInfo._id, receiverId: contact._id}).then((response)=>{
+            console.log("ON LOAD MESSAGES : ",response.data)
+            if(response.data && response.data.messages){
+                const receiverInfo = {
+                    _id: contact._id,
+                    name: contact.displayName,
+                    email: contact.email,
+                    image: contact.image,
+                    messages: response.data.messages
+                }
+                if(receiverInfo && receiverInfo.messages){
+                    setMessageInfo(receiverInfo)
+                }
+            }
+        })
     }
-    console.log("CLICKED CONTACT : ", contact)
+    // console.log("CLICKED CONTACT : ", contact)
 
     useEffect(() => {
         axios.post('http://localhost:5000/user/contacts', { userId: userInfo._id }).then((response) => {
