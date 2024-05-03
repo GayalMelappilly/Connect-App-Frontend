@@ -6,15 +6,18 @@ import App from './App.jsx';
 import { StatusContextProvider } from './contexts/AuthContext.jsx';
 import { UserInfoContextProvider } from './contexts/UserInfoContext.jsx';
 import { ContactContextProvider } from './contexts/ContactContext.jsx';
+import { MessageContextProvider } from './contexts/MessageContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <StatusContextProvider>
       <UserInfoContextProvider>
         <ContactContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <MessageContextProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </MessageContextProvider>
         </ContactContextProvider>
       </UserInfoContextProvider>
     </StatusContextProvider>

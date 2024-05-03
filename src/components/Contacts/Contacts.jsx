@@ -3,19 +3,28 @@ import { CiSearch } from 'react-icons/ci'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 import { ContactContext } from '../../contexts/ContactContext'
 import axios from 'axios'
-import { DivIcon } from 'leaflet'
+import { MessageContext } from '../../contexts/MessageContext'
 
 function Contacts() {
 
     const { userInfo } = useContext(UserInfoContext)
     const { contact } = useContext(ContactContext)
+    const { setMessageInfo } = useContext(MessageContext)
 
     const [allContacts, setAllContacts] = useState([])
     const [selection, setSelection] = useState(null);
 
-    const handleClick = (index) => {
+    const handleClick = (index, contact) => {
         setSelection(index);
-    };
+        const receiverInfo = {
+            _id: contact._id,
+            name: contact.displayName,
+            email: contact.email,
+            image: contact.image
+        }
+        setMessageInfo(receiverInfo)
+    }
+    console.log("CLICKED CONTACT : ", contact)
 
     useEffect(() => {
         axios.post('http://localhost:5000/user/contacts', { userId: userInfo._id }).then((response) => {
@@ -42,7 +51,7 @@ function Contacts() {
             <div className='h-2'></div>
             <div className="flex flex-col">
                 {allContacts && allContacts.map((contact, index) => (
-                    <div className={`w-full h-full flex items-center cursor-pointer justify-between p-2 mt-2 hover:bg-slate-700 hover:bg-opacity-20 rounded-lg ${selection === index ? 'bg-slate-600 bg-opacity-20' : ''}`} key={index} onClick={() => handleClick(index)} >
+                    <div className={`w-full h-full flex items-center cursor-pointer justify-between p-2 mt-2 hover:bg-slate-700 hover:bg-opacity-20 rounded-lg ${selection === index ? 'bg-slate-600 bg-opacity-20' : ''}`} key={index} onClick={() => handleClick(index, contact)} >
                         <label className='flex items-center'>
                             <img src={contact.image} alt="" className='w-10 h-10 rounded-full' />
                             <div className='ml-2'>
