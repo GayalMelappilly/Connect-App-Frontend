@@ -9,6 +9,8 @@ function App() {
 
   const { status } = useContext(StatusContext)
 
+  console.log("APP : ",status)
+
   return (
     <div>
       <Routes>

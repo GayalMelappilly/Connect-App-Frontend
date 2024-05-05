@@ -7,6 +7,7 @@ import { StatusContextProvider } from './contexts/AuthContext.jsx';
 import { UserInfoContextProvider } from './contexts/UserInfoContext.jsx';
 import { ContactContextProvider } from './contexts/ContactContext.jsx';
 import { MessageContextProvider } from './contexts/MessageContext.jsx';
+import { SocketContextProvider } from './contexts/SocketContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -14,12 +15,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <UserInfoContextProvider>
         <ContactContextProvider>
           <MessageContextProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <SocketContextProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </SocketContextProvider>
           </MessageContextProvider>
         </ContactContextProvider>
       </UserInfoContextProvider>
     </StatusContextProvider>
-  </React.StrictMode>
+  </React.StrictMode >
 );

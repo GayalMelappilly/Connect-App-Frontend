@@ -13,17 +13,18 @@ function Signup() {
 
   useEffect(() => {
     const urlEncodedString = document.cookie
-    if(urlEncodedString){
-        const decodedString = decodeURIComponent(urlEncodedString);
-        const jsonSubstring = decodedString.substring(decodedString.indexOf("{"));
-        const userData = JSON.parse(jsonSubstring);
-        setStatus(true)
-        setUserInfo(userData)
-        // console.log("DATA JSON : ",userData);
-        setStatus(userData)
-        navigate('/')
+    if (urlEncodedString) {
+      const decodedString = decodeURIComponent(urlEncodedString);
+      const jsonSubstring = decodedString.substring(decodedString.indexOf("{"));
+      const userData = JSON.parse(jsonSubstring);
+      setStatus(true)
+      setUserInfo(userData)
+      
+      // console.log("DATA JSON : ",userData);
+      // setStatus(userData)
+      navigate('/')
     }
-})
+  },[])
 
   const handleClick = () => {
     window.location.href = 'http://localhost:5000/auth/google';
