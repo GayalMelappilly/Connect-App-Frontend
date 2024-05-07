@@ -14,9 +14,9 @@ const SenderChat = (props) => {
                 <time className="text-xs text-white">12:46</time>
             </div>
             <div className="chat-bubble">{props.message}</div>
-            <div className="chat-footer text-white">
+            {/* <div className="chat-footer text-white">
                 Seen at 12:46
-            </div>
+            </div> */}
         </div>
     )
 }

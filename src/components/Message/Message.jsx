@@ -5,7 +5,7 @@ import { UserInfoContext } from '../../contexts/UserInfoContext';
 import { MessageContext } from '../../contexts/MessageContext';
 import { SocketContext } from '../../contexts/SocketContext';
 import axios from 'axios';
-// import useListenMessages from '../../hooks/useListenMessages';
+import useListenMessages from '../../hooks/useListenMessages';
 
 function Message() {
     const [text, setText] = useState('');
@@ -13,30 +13,7 @@ function Message() {
     const { userInfo } = useContext(UserInfoContext);
     const { socket } = useContext(SocketContext);
 
-    useEffect(() => {
-        console.log("Trying to set up socket event listener...");
-        try {
-            socket?.on("newMessage", (newMessage) => {
-                console.log("REACHED SOCKET CONTEXT");
-                console.log("NEW MESSAGE : ", newMessage);
-                console.log("MESSAGE INFO : ", messageInfo);
-                const updatedMessages = [...messageInfo.messages, newMessage];
-                console.log("UPDATED MSG : ", updatedMessages);
-
-                setMessageInfo(prevState => ({
-                    ...prevState,
-                    messages: updatedMessages
-                }));
-            });
-            console.log("Socket event listener successfully set up.");
-        } catch (error) {
-            console.error("Error setting up socket event listener:", error);
-        }
-
-        return () => {
-            socket?.off("newMessage");
-        };
-    }, [socket, setMessageInfo, messageInfo]);
+    useListenMessages()
 
     useEffect(() => {
         console.log("MESSAGE INFO : ", messageInfo);

@@ -12,31 +12,35 @@ const useListenMessages = () => {
             socket?.on("newMessage", (newMessage) => {
                 console.log("REACHED SOCKET CONTEXT");
                 console.log("NEW MESSAGE : ", newMessage);
-                console.log("MESSAGE INFO : ", messageInfo);
-                const updatedMessages = [...messageInfo?.messages, newMessage];
-                console.log("UPDATED MSG : ", updatedMessages);
-    
-                setMessageInfo(prevState => ({
-                    ...prevState,
-                    messages: updatedMessages
-                }));
+
+                // Ensure messageInfo is not null or undefined and messages is an array
+                if (messageInfo && Array.isArray(messageInfo.messages)) {
+                    const updatedMessages = [...messageInfo.messages, newMessage];
+                    console.log("UPDATED MSG : ", updatedMessages);
+
+                    setMessageInfo(prevState => ({
+                        ...prevState,
+                        messages: updatedMessages
+                    }));
+                } else {
+                    const updatedMessages = [newMessage];
+                    console.log("UPDATED MSG : ", updatedMessages);
+
+                    setMessageInfo(prevState => ({
+                        ...prevState,
+                        messages: updatedMessages
+                    }));
+                }
             });
             console.log("Socket event listener successfully set up.");
         } catch (error) {
             console.error("Error setting up socket event listener:", error);
         }
-    
-        // Cleanup function to remove the event listener when component unmounts
+
         return () => {
-            console.log("Removing socket event listener...");
             socket?.off("newMessage");
-            console.log("Socket event listener removed.");
         };
     }, [socket, setMessageInfo, messageInfo]);
-
-    useEffect(()=>{
-        // console.log("MESSAGE INFO IN HOOKS : ", messageInfo)
-    },[messageInfo])
 }
 
 export default useListenMessages
