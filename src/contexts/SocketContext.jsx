@@ -6,39 +6,41 @@ import io from "socket.io-client";
 export const SocketContext = createContext(null)
 
 export const SocketContextProvider = ({ children }) => {
-    const [socket, setSocket] = useState(null)
-    const [onlineUsers, setOnlineUsers] = useState([])
-    const { status } = useContext(StatusContext)
-    const { userInfo } = useContext(UserInfoContext)
+    const [socket, setSocket] = useState(null);
+    const [onlineUsers, setOnlineUsers] = useState([]);
+    const { status } = useContext(StatusContext);
+    const { userInfo } = useContext(UserInfoContext);
 
     useEffect(() => {
-        console.log("STATUS : ",status)
-        if (status) {
-            console.log("USERINFO : ", userInfo._id)
+        if (status && userInfo) {
             const socket = io('http://localhost:5000', {
-                query:{
+                query: {
                     userId: userInfo._id
                 }
-            })
-            setSocket(socket)
+            });
 
-            socket.on('getOnlineUsers', (users)=>{
-                setOnlineUsers(users)
-                console.log("S USERS ", users)
-            })
+            setSocket(socket);
 
-            return () => socket.close()
+            socket.on('getOnlineUsers', (users) => {
+                setOnlineUsers(users);
+                console.log("Online Users: ", users);
+            });
+
+            return () => {
+                socket.close();
+                setSocket(null);
+            };
         } else {
             if (socket) {
-                socket.close()
-                setSocket(null)
+                socket.close();
+                setSocket(null);
             }
         }
-    },[status])
+    }, [status, userInfo]);
 
     return (
         <SocketContext.Provider value={{ socket, onlineUsers }}>
             {children}
         </SocketContext.Provider>
-    )
-}
+    );
+};

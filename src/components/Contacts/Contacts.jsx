@@ -16,23 +16,27 @@ function Contacts() {
     const [allContacts, setAllContacts] = useState([])
     const [selection, setSelection] = useState(null);
 
-    const isOnline = onlineUsers.includes(userInfo._id)
+    // const isOnline = onlineUsers.includes(userInfo._id)
 
-    console.log("O USERS ", isOnline)
+    // console.log("O USERS ", isOnline)
 
     const handleClick = (index, contact) => {
         setSelection(index);
+        console.log("CLICKED ", contact)
         axios.post('http://localhost:5000/message/get/', { senderId: userInfo._id, receiverId: contact._id }).then((response) => {
-            if (response.data && response.data.messages) {
+            console.log("RESPONSE ", response)
+            if (response) {
                 const receiverInfo = {
                     _id: contact._id,
                     name: contact.displayName,
                     email: contact.email,
                     image: contact.image,
-                    messages: response.data.messages
+                    messages: response.data?.messages
                 }
-                if (receiverInfo && receiverInfo.messages) {
+                console.log("RECEIVER INFO ", receiverInfo)
+                if (receiverInfo) {
                     setMessageInfo(receiverInfo)
+                    console.log("UPDATED INFO")
                 }
             }
         })

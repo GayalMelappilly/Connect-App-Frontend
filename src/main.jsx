@@ -13,15 +13,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <StatusContextProvider>
       <UserInfoContextProvider>
-        <ContactContextProvider>
-          <MessageContextProvider>
-            <SocketContextProvider>
+        <SocketContextProvider>
+          <ContactContextProvider>
+            <MessageContextProvider>
               <BrowserRouter>
                 <App />
               </BrowserRouter>
-            </SocketContextProvider>
-          </MessageContextProvider>
-        </ContactContextProvider>
+            </MessageContextProvider>
+          </ContactContextProvider>
+        </SocketContextProvider>
       </UserInfoContextProvider>
     </StatusContextProvider>
   </React.StrictMode >
