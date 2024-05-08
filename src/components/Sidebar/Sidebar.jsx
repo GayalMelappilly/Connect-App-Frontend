@@ -28,7 +28,7 @@ function Sidebar() {
     })
 
     return (
-        <div className={`${optionClick ? 'w-7/12' : 'w-1/12'} relative  transition-all ease-in-out duration-200 bg-opacity-80 bg-center m-2 rounded-lg p-5  backdrop-blur-sm shadow-[0px_0px_10px_1px_#2d3748] max-md:w-0 max-lg:hidden`}>
+        <div className={`${optionClick ? 'w-7/12' : 'w-1/12'} relative  transition-all ease-in-out duration-200 bg-opacity-80 bg-center m-2 rounded-e-lg p-5  backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)] max-md:w-0 max-lg:hidden`}>
 
             {profileClick && <Profile />}
             {settingsClick && <Settings />}
@@ -70,7 +70,7 @@ function Sidebar() {
                     setSettingsClick(false)
                 }}>
                     <FaUserFriends size={50} color='white' className='transition-all ease-in-out duration-100 cursor-pointer m-auto' />
-                    {reqCount && <div className={`${optionClick ? 'opacity-0' : 'opacity-100 cursor-pointer'} transition-all ease-in duration-700 absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-600 border-2 border-none rounded-lg -top-2 -end-2`}>{reqCount}</div>}
+                    {reqCount>0 && <div className={`${optionClick ? 'opacity-0' : 'opacity-100 cursor-pointer'} transition-all ease-in duration-700 absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-600 border-2 border-none rounded-lg -top-2 -end-2`}>{reqCount}</div>}
                 </div>
 
             </div>

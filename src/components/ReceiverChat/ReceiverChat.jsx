@@ -12,7 +12,7 @@ const ReceiverChat = (props) => {
                     </div>
                 </div>
                 <div className="chat-header">
-                    <time className="text-xs opacity-80 text-white">12:45</time>
+                    <time className="text-xs opacity-80 text-white">{props.currentTime}</time>
                 </div>
                 <div className="chat-bubble">{props.message}</div>
                 <div className="chat-footer opacity-80 text-white">

@@ -29,7 +29,7 @@ const Profile = () => {
                             </div>
                             <div className='ml-2 pl-3'>
                                 <h1 className='text-xl text-white'>{userInfo.displayName}</h1>
-                                <p className='text-md text-slate-700'>{userInfo.email}</p>
+                                <p className='text-md text-emerald-500'>{userInfo.email}</p>
                             </div>
                         </div>
                         {/* <div className='flex items-center'>
@@ -38,8 +38,8 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-            <div className='relative'>
-                <button className='text-sm bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600' onClick={HandleLogout}>Logout</button>
+            <div className='relative h-full'>
+                <button className='text-sm bg-emerald-600 mt-64 w-3/6 mx-auto text-slate-700 rounded-md px-4 py-2 hover:bg-blue-600' onClick={HandleLogout}>Logout</button>
             </div>
         </div>
     )
