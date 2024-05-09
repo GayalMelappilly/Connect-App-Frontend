@@ -11,6 +11,7 @@ import getCurrentTime from '../../hooks/getCurrentTime';
 function Message() {
     const [text, setText] = useState('');
     const [currentTime, setCurrentTime] = useState('')
+    const [previousIndex, setPreviousIndex] = useState(-1);
 
     const { messageInfo, setMessageInfo } = useContext(MessageContext);
     const { userInfo } = useContext(UserInfoContext);
@@ -46,10 +47,9 @@ function Message() {
             <div className='overflow-scroll h-5/6 rounded-lg p-5 backdrop-blur-sm'>
                 {messageInfo && messageInfo.messages && messageInfo.messages.map((msg, index) => (
                     <div key={index}>
-                        {userInfo._id === msg.senderId ? <SenderChat index={index} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} /> : <ReceiverChat index={index} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} />}
+                        {userInfo._id === msg.senderId ? <SenderChat index={index} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} /> : <ReceiverChat index={index} previousIndex={index === 0 ? -1 : index - 1} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} />}
                         <div ref={messagesEndRef} />
                     </div>
-                    
                 ))}
             </div>
             <hr className='border-green-200' />

@@ -17,7 +17,7 @@ const UserSearch = () => {
     const { setContact } = useContext(ContactContext)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/user/list?search=${username}`).then((response) => {
+        axios.get(`http://localhost:5000/user/list?search=${username}&id=${userInfo._id}`).then((response) => {
             setUser(response.data)
         })
     }, [username])
@@ -26,22 +26,25 @@ const UserSearch = () => {
         axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response) => {
             setFriendReq(response.data)
         })
-    },[])
+    }, [])
 
     const handleAddFriend = (user) => {
         axios.post(`http://localhost:5000/user/add-friend`, { senderDetails: userInfo, receiverDetails: user }).then((response) => {
+            console.log("ADDED : ",response.data)
         })
     }
 
     const handleAccept = (user) => {
-        axios.put('http://localhost:5000/user/req-accept', {reqFrom : user, reqTo: userInfo}).then((response)=>{
+        axios.put('http://localhost:5000/user/req-accept', { reqFrom: user, reqTo: userInfo }).then((response) => {
             setContact(response.data.contacts)
-        })  
+            setFriendReq(response.data)
+        })
     }
 
     const handleDecline = (user) => {
-        axios.put('http://localhost:5000/user/req-decline', {reqFrom : user, reqTo: userInfo}).then((response)=>{
-            console.log(response.data)
+        axios.put('http://localhost:5000/user/req-decline', { reqFrom: user, reqTo: userInfo }).then((response) => {
+            console.log("DECLINED : ",response.data)
+            setFriendReq(response.data)
         })
     }
 
@@ -67,26 +70,31 @@ const UserSearch = () => {
                                 <p className='text-xs text-emerald-500'>{user.email}</p>
                             </div>
                             <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} ml-5`}>
-                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-emerald-500   hover:bg-emerald-500 hover:text-black' onClick={handleAccept(user)}/>
-                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={handleDecline(user)}/>
+                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-emerald-500   hover:bg-emerald-500 hover:text-black' onClick={()=>handleAccept(user)} />
+                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={()=>handleDecline(user)} />
                             </div>
                         </div>
                     </div>
                 })}
+                {showReq && !friendReq &&
+                    <div>
+                        <p className='text-white'>No reqs yet!</p>
+                    </div>
+                }
             </div>}
             {user && <div className='absolute w-full'>
                 <div className='w-full h-fullrounded-md'>
                     {username && <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
                             return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
-                                <div className='flex items-center'>
+                                <div className='flex items-center w-full'>
                                     <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
                                     <div className='ml-2'>
                                         <h1 className='text-sm text-white'>{user.displayName}</h1>
                                         <p className='text-xs text-slate-700'>{user.email}</p>
                                     </div>
-                                    <button className='btn btn-outline btn-sm border-pink-600 text-slate-900 ml-5' onClick={() => { handleAddFriend(user) }}>ADD</button>
                                 </div>
+                                <button className='btn end-0 btn-outline btn-sm border-emerald-500 text-emerald-500 ml-5 hover:border-emerald-500 hover:bg-emerald-500 hover:text-black' onClick={()=>handleAddFriend(user)}>ADD</button>
                             </div>
                         })}
                     </div>}
