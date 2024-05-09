@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import SenderChat from '../SenderChat/SenderChat';
 import ReceiverChat from '../ReceiverChat/ReceiverChat';
 import { UserInfoContext } from '../../contexts/UserInfoContext';
@@ -18,9 +18,19 @@ function Message() {
 
     useListenMessages()
 
+    const messagesEndRef = useRef(null);
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+      }, [messageInfo]);
+
     useEffect(() => {
         console.log("MESSAGE INFO : ", messageInfo);
-        console.log("TIME : ",currentTime)
+        console.log("TIME : ", currentTime)
     }, [messageInfo]);
 
     const handleSend = () => {
@@ -28,15 +38,18 @@ function Message() {
             .then((response) => {
                 console.log(response.data);
             });
+        setText('')
     };
-    
+
     return (
         <div className="w-full bg-opacity-80 m-2 p-5 backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)] max-md:w-0 max-md:hidden">
             <div className='overflow-scroll h-5/6 rounded-lg p-5 backdrop-blur-sm'>
                 {messageInfo && messageInfo.messages && messageInfo.messages.map((msg, index) => (
                     <div key={index}>
-                        {userInfo._id === msg.senderId ? <SenderChat message={msg.message} currentTime={getCurrentTime(msg.createdAt)} /> : <ReceiverChat message={msg.message} currentTime={getCurrentTime(msg.createdAt)} />}
+                        {userInfo._id === msg.senderId ? <SenderChat index={index} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} /> : <ReceiverChat index={index} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} />}
+                        <div ref={messagesEndRef} />
                     </div>
+                    
                 ))}
             </div>
             <hr className='border-green-200' />
