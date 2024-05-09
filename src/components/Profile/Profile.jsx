@@ -1,12 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 import { StatusContext } from '../../contexts/AuthContext'
+import { ContactContext } from '../../contexts/ContactContext'
 import axios from 'axios'
 
 const Profile = () => {
 
     const { userInfo } = useContext(UserInfoContext)
     const { status, setStatus } = useContext(StatusContext)
+    const {contact} = useContext(ContactContext)
+
+    useEffect(()=>{
+        console.log("CONTACT IN PROFILE : ",contact)
+    })
 
     const HandleLogout = () => {
         axios.get('http://localhost:5000/auth/logout').then(() => {
@@ -18,7 +24,7 @@ const Profile = () => {
 
     return (
         <div className='absolute'>
-            <div className='w-full h-full bg-transparent rounded-md'>
+            <div className='w-full bg-transparent'>
                 <div className='w-full h-full overflow-y-scroll mt-5'>
                     <div className='w-full h-full flex items-center justify-between p-2 mt-2 cursor-pointer'>
                         <div className='flex items-center'>
@@ -37,9 +43,15 @@ const Profile = () => {
                             </div> */}
                     </div>
                 </div>
-            </div>
-            <div className='relative h-full'>
-                <button className='text-sm bg-emerald-600 mt-64 w-3/6 mx-auto text-slate-700 rounded-md px-4 py-2 hover:bg-blue-600' onClick={HandleLogout}>Logout</button>
+                <div>
+                    <div>
+                        <h1>Contacts</h1>
+                        {/* <p>{contact._id}</p> */}
+                    </div>
+                </div>
+                <div className='relative flex bottom-0 justify-center'>
+                    <button className='text-sm bg-red-700 bottom-0 w-5/6 text-black font-semibold rounded-md px-4 py-2 hover:bg-red-800' onClick={HandleLogout}>Logout</button>
+                </div>
             </div>
         </div>
     )
