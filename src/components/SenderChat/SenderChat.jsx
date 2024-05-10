@@ -25,7 +25,7 @@ const SenderChat = (props) => {
                 <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                     <div className="grid mb-2">
                         <div className="px-3 py-2 shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-b-md rounded-ss-md">
-                            <h2 className="text-white text-sm font-normal leading-snug">{props.message}</h2>
+                            <h2 className="text-white text-sm font-normal leading-snug          max-md:text-xs">{props.message}</h2>
                         </div>
                         <div className={`${hover ? 'opacity-80' : 'opacity-0 absolute'}`}>
                             <h3 className="text-gray-500 text-xs font-normal leading-4 py-1">{props.currentTime}</h3>

@@ -12,13 +12,20 @@ const UserSearch = () => {
     const [friendReq, setFriendReq] = useState(null)
     const [showReq, setShowReq] = useState(false)
     const [user, setUser] = useState([])
+    const [cont, setCont] = useState([])
 
     const { userInfo } = useContext(UserInfoContext)
     const { setContact } = useContext(ContactContext)
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/user/list?search=${username}&id=${userInfo._id}`).then((response) => {
-            setUser(response.data)
+        console.log("USER : ", userInfo)
+        axios.post('http://localhost:5000/user/contacts', { userId: userInfo._id }).then((response) => {
+            console.log("SET CONT : ",response.data.contacts)
+            setCont(response.data.contacts)
+            axios.get(`http://localhost:5000/user/list?search=${username}&id=${userInfo._id}`).then((response) => {
+                console.log("CONT : ",cont)
+                setUser(response.data)
+            })
         })
     }, [username])
 
@@ -86,6 +93,7 @@ const UserSearch = () => {
                 <div className='w-full h-fullrounded-md'>
                     {username && <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
+                            // console.log("USER iN P: ", user)
                             return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
                                 <div className='flex items-center w-full'>
                                     <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
@@ -94,7 +102,11 @@ const UserSearch = () => {
                                         <p className='text-xs text-slate-700'>{user.email}</p>
                                     </div>
                                 </div>
-                                <button className='btn end-0 btn-outline btn-sm border-emerald-500 text-emerald-500 ml-5 hover:border-emerald-500 hover:bg-emerald-500 hover:text-black' onClick={()=>handleAddFriend(user)}>ADD</button>
+                                {cont.includes(user) ? 
+                                <p>Added</p>
+                                :
+                                <button className='btn end-0 btn-outline btn-sm border-emerald-500 text-emerald-500 ml-5 hover:border-emerald-500 hover:bg-emerald-500 hover:text-black' onClick={()=>handleAddFriend(user)}>ADD</button> 
+                                }
                             </div>
                         })}
                     </div>}
