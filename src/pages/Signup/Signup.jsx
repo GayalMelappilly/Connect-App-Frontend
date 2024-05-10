@@ -19,9 +19,7 @@ function Signup() {
       const userData = JSON.parse(jsonSubstring);
       setStatus(true)
       setUserInfo(userData)
-      
-      // console.log("DATA JSON : ",userData);
-      // setStatus(userData)
+    
       navigate('/')
     }
   },[])

@@ -16,10 +16,6 @@ function Contacts() {
     const [allContacts, setAllContacts] = useState([])
     const [selection, setSelection] = useState(null);
 
-    // const isOnline = onlineUsers.includes(userInfo._id)
-
-    // console.log("O USERS ", isOnline)
-
     const handleClick = (index, contact) => {
         setSelection(index);
         console.log("CLICKED ", contact)

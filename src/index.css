@@ -34,6 +34,15 @@ input[type="search"]::-webkit-search-results-decoration {
     src: url('./assets/Fonts/MADEAwelierPERSONALUSE-Medium.otf') format('openType');
 }
 
+@font-face {
+    font-family: 'creato-display';
+    src: url('./assets/Fonts/CreatoDisplay-Regular.otf') format('openType');
+}
+
+.creato-display-font{
+    font-family: 'creato-display';
+}
+
 .peace-sans {
     font-family: 'peace-sans';
 }

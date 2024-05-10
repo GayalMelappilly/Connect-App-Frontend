@@ -1,18 +1,25 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 import { StatusContext } from '../../contexts/AuthContext'
 import { ContactContext } from '../../contexts/ContactContext'
+import getDate from '../../hooks/getDate'
 import axios from 'axios'
 
 const Profile = () => {
 
     const { userInfo } = useContext(UserInfoContext)
     const { status, setStatus } = useContext(StatusContext)
-    const {contact} = useContext(ContactContext)
+    const { contact } = useContext(ContactContext)
 
-    useEffect(()=>{
-        console.log("CONTACT IN PROFILE : ",contact)
-    })
+    const [contactCount, setContactCount] = useState(0)
+    const [date, setDate] = useState('')
+
+    useEffect(() => {
+        axios.post('http://localhost:5000/user/contacts', { userId: userInfo._id }).then((response) => {
+            setContactCount(response.data.contacts.length)
+            setDate(getDate(userInfo.createdAt))
+        })
+    }, [userInfo])
 
     const HandleLogout = () => {
         axios.get('http://localhost:5000/auth/logout').then(() => {
@@ -43,14 +50,21 @@ const Profile = () => {
                             </div> */}
                     </div>
                 </div>
-                <div>
-                    <div>
-                        <h1>Contacts</h1>
-                        {/* <p>{contact._id}</p> */}
+                <hr className='my-5 opacity-50'/>
+                <div className='w-fit flex justify-center'>
+                    <div className='shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-lg p-2 px-2'>
+                        <h1 className='text-white flex justify-center'>Total Contacts</h1>
+                        <p className='text-white flex justify-center'>{contactCount}</p>
+                    </div>
+                    <div className='mx-1'></div>
+                    <div className='shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-lg p-2 px-4'>
+                        <h1 className='text-white flex justify-center'>Joined on</h1>
+                        <p className='text-white flex justify-center'>{date}</p>
                     </div>
                 </div>
+                <hr className='my-5 opacity-50'/>
                 <div className='relative flex bottom-0 justify-center'>
-                    <button className='text-sm bg-red-700 bottom-0 w-5/6 text-black font-semibold rounded-md px-4 py-2 hover:bg-red-800' onClick={HandleLogout}>Logout</button>
+                    <button className='text-sm bg-red-700 bottom-0 w-full text-black font-semibold rounded-md px-4 py-2 hover:bg-red-800' onClick={HandleLogout}>Logout</button>
                 </div>
             </div>
         </div>
