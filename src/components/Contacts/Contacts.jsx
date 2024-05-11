@@ -77,34 +77,34 @@ function Contacts() {
                     </button>
                 </span>
                 <input type="search" name="q" className="py-2 text-sm text-white bg-[#1B1E1C] rounded-md pl-10 focus:outline-none" placeholder="Search..." autoComplete="off" />
-                {window.innerWidth <= 768 && 
-                <div className="dropdown dropdown-end absolute inset-y-0 right-0 flex items-center pr-2">
-                    <div tabIndex={0} role="button" className="m-1 "><IoReorderThreeOutline size={25} className='font-bold text-emerald-500 active:text-emerald-700' /></div>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-[#1B1E1C] rounded-s-md rounded-b-md w-52 mt-44 shadow-[0_3px_10px_rgb(0,0,0,0.4)]">
-                        <li><Link><FaUser />Profile</Link></li>
-                        <li><a><IoMdSettings />Settings</a></li>
-                        <li onClick={HandleLogout}><a><MdLogout />Logout</a></li>
-                    </ul>
-                </div>}
+                {window.innerWidth <= 768 &&
+                    <div className="dropdown dropdown-end absolute inset-y-0 right-0 flex items-center pr-2">
+                        <div tabIndex={0} role="button" className="m-1 "><IoReorderThreeOutline size={25} className='font-bold text-emerald-500 active:text-emerald-700' /></div>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-[#1B1E1C] rounded-s-md rounded-b-md w-52 mt-44 shadow-[0_3px_10px_rgb(0,0,0,0.4)]">
+                            <li><Link><FaUser />Profile</Link></li>
+                            <li><a><IoMdSettings />Settings</a></li>
+                            <li onClick={HandleLogout}><a><MdLogout />Logout</a></li>
+                        </ul>
+                    </div>}
             </div>
-            {selection && window.innerWidth <= 768 &&
-                <div className={`relative text-gray-600 focus-within:text-gray-400 h-60`}>
-                    <div className='flex'>
-                        <div>
-                            <button className='bg-slate-300 h-full rounded-lg w-8' onClick={() => {
-                                setSelection(null)
-                                setMessageInfo(null)
-                            }}><MdKeyboardArrowLeft size={30} className='fill-black mx-auto' /></button>
-                        </div>
-                        <div className='mx-1'></div>
-                        <img className='rounded-lg w-14 h-14' src={`${mdContactBar.image}`} alt="" />
-                        <div className='mx-1'></div>
-                        <div>
-                            <h1 className='text-xl text-white'>{mdContactBar.displayName}</h1>
-                            <p className='text-emerald-500'>{mdContactBar.email}</p>
-                        </div>
+            {selection!==null && mdContactBar && window.innerWidth <= 768 && <div className={`relative text-gray-600 focus-within:text-gray-400 h-60`}>
+                {/* {alert("REAched")} */}
+                <div className='flex'>
+                    <div>
+                        <button className='bg-slate-300 h-full rounded-lg w-8' onClick={() => {
+                            setSelection(null)
+                            setMessageInfo(null)
+                        }}><MdKeyboardArrowLeft size={30} className='fill-black mx-auto' /></button>
+                    </div>
+                    <div className='mx-1'></div>
+                    <img className='rounded-lg w-14 h-14' src={`${mdContactBar.image}`} alt="" />
+                    <div className='mx-1'></div>
+                    <div>
+                        <h1 className='text-xl text-white'>{mdContactBar.displayName}</h1>
+                        <p className='text-emerald-500'>{mdContactBar.email}</p>
                     </div>
                 </div>
+            </div>
             }
             <hr className={`${messageInfo ? 'max-md:hidden' : null}`} />
             <div className='h-2'></div>

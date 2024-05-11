@@ -20,14 +20,17 @@ const UserSearch = () => {
     useEffect(() => {
         console.log("USER : ", userInfo)
         axios.post('http://localhost:5000/user/contacts', { userId: userInfo._id }).then((response) => {
-            console.log("SET CONT : ",response.data.contacts)
+            console.log("SET CONT : ", response.data.contacts)
             setCont(response.data.contacts)
-            axios.get(`http://localhost:5000/user/list?search=${username}&id=${userInfo._id}`).then((response) => {
-                console.log("CONT : ",cont)
-                setUser(response.data)
-            })
         })
-    }, [username])
+    },[userInfo])
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/user/list?search=${username}&id=${userInfo._id}`).then((response) => {
+            console.log("CONT : ", cont)
+            setUser(response.data)
+        })
+    },[username])
 
     useEffect(() => {
         axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response) => {
@@ -37,7 +40,7 @@ const UserSearch = () => {
 
     const handleAddFriend = (user) => {
         axios.post(`http://localhost:5000/user/add-friend`, { senderDetails: userInfo, receiverDetails: user }).then((response) => {
-            console.log("ADDED : ",response.data)
+            console.log("ADDED : ", response.data)
         })
     }
 
@@ -50,7 +53,7 @@ const UserSearch = () => {
 
     const handleDecline = (user) => {
         axios.put('http://localhost:5000/user/req-decline', { reqFrom: user, reqTo: userInfo }).then((response) => {
-            console.log("DECLINED : ",response.data)
+            console.log("DECLINED : ", response.data)
             setFriendReq(response.data)
         })
     }
@@ -77,8 +80,8 @@ const UserSearch = () => {
                                 <p className='text-xs text-emerald-500'>{user.email}</p>
                             </div>
                             <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} ml-5`}>
-                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-emerald-500   hover:bg-emerald-500 hover:text-black' onClick={()=>handleAccept(user)} />
-                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={()=>handleDecline(user)} />
+                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-emerald-500   hover:bg-emerald-500 hover:text-black' onClick={() => handleAccept(user)} />
+                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={() => handleDecline(user)} />
                             </div>
                         </div>
                     </div>
@@ -102,10 +105,10 @@ const UserSearch = () => {
                                         <p className='text-xs text-slate-700'>{user.email}</p>
                                     </div>
                                 </div>
-                                {cont.includes(user) ? 
-                                <p>Added</p>
-                                :
-                                <button className='btn end-0 btn-outline btn-sm border-emerald-500 text-emerald-500 ml-5 hover:border-emerald-500 hover:bg-emerald-500 hover:text-black' onClick={()=>handleAddFriend(user)}>ADD</button> 
+                                {cont.includes(user) ?
+                                    <p>Added</p>
+                                    :
+                                    <button className='btn end-0 btn-outline btn-sm border-emerald-500 text-emerald-500 ml-5 hover:border-emerald-500 hover:bg-emerald-500 hover:text-black' onClick={() => handleAddFriend(user)}>ADD</button>
                                 }
                             </div>
                         })}
