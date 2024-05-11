@@ -33,11 +33,11 @@ function Signup() {
   return (
     <div className="flex h-screen w-full items-center justify-center bg-slate-900 px-10">
       <div className="w-full max-w-3xl overflow-hidden rounded-lg bg-white shadow-lg sm:flex">
-        <div className="w-full sm:w-3/5">
-          <div className="p-8">
-            <h1 className="text-4xl font-black text-slate-700">Sign up</h1>
+        <div className="w-full sm:w-3/5 ">
+          <div className="p-8   max-md:p-8">
+            <h1 className="text-4xl font-black text-slate-700       max-md:text-3xl">Sign up</h1>
             <div className='p-10'>
-              <h1 className="text-2xl font-black text-slate-700">Login or create a Google account to continue.</h1>
+              <h1 className="text-2xl font-black text-slate-700       max-md:text-xl">Login or create a Google account to continue.</h1>
             </div>
             <div className='h-20 w-full'>
               <button className="flex mx-auto items-center bg-white dark:bg-white border border-gray-300 rounded-lg shadow-md px-6 py-2 text-md font-medium text-gray-800 dark:text-gray-800 hover:bg-gray-200 focus:outline-none" onClick={handleClick}>

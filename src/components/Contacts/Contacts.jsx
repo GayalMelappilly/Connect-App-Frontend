@@ -7,6 +7,12 @@ import { MdKeyboardArrowLeft } from "react-icons/md";
 import { IoReorderThreeOutline } from "react-icons/io5";
 import { MessageContext } from '../../contexts/MessageContext'
 import { SocketContext } from '../../contexts/SocketContext'
+import { FaUser } from 'react-icons/fa'
+import { IoMdSettings } from 'react-icons/io'
+import { MdLogout } from "react-icons/md";
+import { Link } from 'react-router-dom'
+import Profile from '../Profile/Profile'
+import { StatusContext } from '../../contexts/AuthContext'
 
 function Contacts() {
 
@@ -14,6 +20,7 @@ function Contacts() {
     const { contact } = useContext(ContactContext)
     const { messageInfo, setMessageInfo } = useContext(MessageContext)
     const { onlineUsers } = useContext(SocketContext)
+    const { status, setStatus } = useContext(StatusContext)
 
     const [mdContactBar, setMdContactBar] = useState(null)
     const [allContacts, setAllContacts] = useState([])
@@ -48,24 +55,37 @@ function Contacts() {
         })
     }, [userInfo])
 
+    const HandleLogout = () => {
+        console.log("LOGOUT")
+        axios.get('http://localhost:5000/auth/logout').then(() => {
+            setStatus(false)
+            document.cookie = `userData=;  Max-Age=-99999999;`;
+            console.log("LOGOUT SUCCESSFUL.", status)
+        })
+    }
+
     useEffect(() => {
         setAllContacts(contact)
     }, [contact])
 
     return (
-        <div className={`m-2 w-3/6 p-3 rounded-s-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)]            max-md:w-auto ${messageInfo ? 'max-md:h-20' : 'max-md:h-5/6'}`}>
-            <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null}`}>
+        <div className={`m-2 w-3/6 p-3 rounded-s-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)]           transition-all ease-in-out duration-700 max-md:w-auto ${messageInfo ? 'max-md:h-20' : 'max-md:h-5/6'}`}>
+            <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null}  transition-all ease-in-out duration-700`}>
                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                     <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
                         <CiSearch size={20} />
                     </button>
                 </span>
-                <input type="search" name="q" className="py-2 text-sm text-white bg-transparent rounded-md pl-10 focus:outline-none" placeholder="Search..." autoComplete="off" />
-                {window.innerWidth <= 768 && <span>
-                    <button className='absolute inset-y-0 right-0 flex items-center pr-2'>
-                        <IoReorderThreeOutline size={25} className='font-bold' />
-                    </button>
-                </span>}
+                <input type="search" name="q" className="py-2 text-sm text-white bg-[#1B1E1C] rounded-md pl-10 focus:outline-none" placeholder="Search..." autoComplete="off" />
+                {window.innerWidth <= 768 && 
+                <div className="dropdown dropdown-end absolute inset-y-0 right-0 flex items-center pr-2">
+                    <div tabIndex={0} role="button" className="m-1 "><IoReorderThreeOutline size={25} className='font-bold text-emerald-500 active:text-emerald-700' /></div>
+                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-[#1B1E1C] rounded-s-md rounded-b-md w-52 mt-44 shadow-[0_3px_10px_rgb(0,0,0,0.4)]">
+                        <li><Link><FaUser />Profile</Link></li>
+                        <li><a><IoMdSettings />Settings</a></li>
+                        <li onClick={HandleLogout}><a><MdLogout />Logout</a></li>
+                    </ul>
+                </div>}
             </div>
             {selection && window.innerWidth <= 768 &&
                 <div className={`relative text-gray-600 focus-within:text-gray-400 h-60`}>

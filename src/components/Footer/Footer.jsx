@@ -5,7 +5,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 function Footer() {
     return (
-        <div className='h-auto bg-neutral-950 flex py-10 justify-between px-32 max-md:px-10'>
+        <div className='h-auto bg-neutral-950 flex py-10 justify-between px-32 max-md:px-10 max-md:relative'>
             <div className=''>
                 <h1 className='text-white text-5xl pt-3  roboto    max-md:text-4xl max-sm:text-3xl'>Get in Touch</h1>
                 <div className='flex pt-2'>
