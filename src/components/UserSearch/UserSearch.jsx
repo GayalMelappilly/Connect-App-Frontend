@@ -13,6 +13,7 @@ const UserSearch = () => {
     const [showReq, setShowReq] = useState(false)
     const [user, setUser] = useState([])
     const [cont, setCont] = useState([])
+    const [emailCheck, setEmailCheck] = useState(true)
 
     const { userInfo } = useContext(UserInfoContext)
     const { setContact } = useContext(ContactContext)
@@ -23,14 +24,15 @@ const UserSearch = () => {
             console.log("SET CONT : ", response.data.contacts)
             setCont(response.data.contacts)
         })
-    },[userInfo])
+    }, [userInfo])
 
     useEffect(() => {
         axios.get(`http://localhost:5000/user/list?search=${username}&id=${userInfo._id}`).then((response) => {
             console.log("CONT : ", cont)
             setUser(response.data)
+            setEmailCheck(true)
         })
-    },[username])
+    }, [username])
 
     useEffect(() => {
         axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response) => {
@@ -56,6 +58,18 @@ const UserSearch = () => {
             console.log("DECLINED : ", response.data)
             setFriendReq(response.data)
         })
+    }
+
+    const handleInvite = (username) => {
+        console.log('USERNAME ', username)
+        if (username.includes('@gmail.com')) {
+            setEmailCheck(true)
+            axios.post('http://localhost:5000/user/invite-user', { email: username }).then((response) => {
+                console.log("INVITE SUCCESSFULLY : ", response.data)
+            })
+        } else {
+            setEmailCheck(false)
+        }
     }
 
     return (
@@ -94,7 +108,7 @@ const UserSearch = () => {
             </div>}
             {user && <div className='absolute w-full'>
                 <div className='w-full h-fullrounded-md'>
-                    {username && <div className='w-full h-full overflow-y-scroll mt-5'>
+                    {username ? <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
                             // console.log("USER iN P: ", user)
                             return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
@@ -112,7 +126,18 @@ const UserSearch = () => {
                                 }
                             </div>
                         })}
-                    </div>}
+                        {user.length === 0 && <div>
+                            <p className='flex justify-center text-neutral-content'>User does not exist</p>
+                            {emailCheck ? null : <p className='flex justify-center mt-2 text-red-400'>Invalid gmail address</p>}
+                            <div className='flex justify-center'>
+                                <button className='flex justify-center bg-emerald-500 text-black hover:bg-emerald-700 btn btn-sm w-3/6 rounded-md mt-5' onClick={() => handleInvite(username)}>Invite Friend</button>
+                            </div>
+                        </div>}
+                    </div>
+                        :
+                        <div className='flex justify-center mt-5'>
+                            <p className='text-neutral-content'>Search for a user</p>
+                        </div>}
                 </div>
             </div>}
         </div>
