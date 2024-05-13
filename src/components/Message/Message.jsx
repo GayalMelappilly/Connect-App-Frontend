@@ -7,7 +7,7 @@ import { SocketContext } from '../../contexts/SocketContext';
 import axios from 'axios';
 import { AiOutlineSend } from "react-icons/ai";
 import useListenMessages from '../../hooks/useListenMessages';
-import getCurrentTime from '../../hooks/getCurrentTime';
+import getCurrentTime from '../../hooks/getCurrentTime.js';
 
 function Message() {
     const [text, setText] = useState('');
@@ -48,13 +48,13 @@ function Message() {
             {messageInfo ? <div className=''>
                 <div className='absolute overflow-scroll h-96 w-full rounded-lg pr-10 backdrop-blur-sm max-md:h-5/6'>
                     {messageInfo && messageInfo.messages && messageInfo.messages.map((msg, index) => (
+                        // console.log("MESSAGE : ", msg),
                         <div key={index}>
-                            {userInfo._id === msg.senderId ? <SenderChat index={index} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} /> : <ReceiverChat index={index} previousIndex={index === 0 ? -1 : index - 1} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} />}
+                            {userInfo._id === msg.senderId ? <SenderChat  index={index} message={msg.message} details={msg} currentTime={getCurrentTime(msg.createdAt)} /> : <ReceiverChat index={index} previousIndex={index === 0 ? -1 : index - 1} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} />}
                             <div ref={messagesEndRef} />
                         </div>
                     ))}
                 </div>
-                {/* <hr className='border-green-200 absolute w-11/12 opacity-20' /> */}
                 <div className='w-full h-auto absolute bottom-4 flex '>
                     <input type="search" name="q" className="py-2 w-8/12 text-sm text-white bg-transparent pl-10 focus:outline-none rounded-md placeholder:text-white placeholder:text-opacity-30 shadow-[0_3px_10px_rgb(0,0,0,0.4)]           max-md:w-9/12 max-md:pl-5" placeholder="Message" autoComplete='off' value={text} onChange={(e) => { setText(e.target.value) }} />
                     <div className='px-2    max-md:px-1'></div>

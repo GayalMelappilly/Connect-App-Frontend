@@ -64,7 +64,7 @@ const UserSearch = () => {
         console.log('USERNAME ', username)
         if (username.includes('@gmail.com')) {
             setEmailCheck(true)
-            axios.post('http://localhost:5000/user/invite-user', { email: username }).then((response) => {
+            axios.post('http://localhost:5000/user/invite-user', { email: username, user: userInfo }).then((response) => {
                 console.log("INVITE SUCCESSFULLY : ", response.data)
             })
         } else {
