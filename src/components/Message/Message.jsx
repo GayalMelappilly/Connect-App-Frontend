@@ -22,6 +22,8 @@ function Message() {
 
     const messagesEndRef = useRef(null);
 
+    const [messages, setMessages] = useState(null)
+
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
@@ -33,6 +35,7 @@ function Message() {
     useEffect(() => {
         console.log("MESSAGE INFO : ", messageInfo);
         console.log("TIME : ", currentTime)
+        setMessages(messageInfo)
     }, [messageInfo]);
 
     const handleSend = () => {
@@ -47,8 +50,7 @@ function Message() {
         <div id='message' className={`w-full bg-opacity-80 m-2 p-5 backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)] transition-all duration-700 ease-in-out ${messageInfo ? 'max-md:h-5/6' : 'max-md:h-20'} max-md:w-auto max-md:rounded-lg`}>
             {messageInfo ? <div className=''>
                 <div className='absolute overflow-scroll h-96 w-full rounded-lg pr-10 backdrop-blur-sm max-md:h-5/6'>
-                    {messageInfo && messageInfo.messages && messageInfo.messages.map((msg, index) => (
-                        // console.log("MESSAGE : ", msg),
+                    {messages && messages.messages && messages.messages.map((msg, index) => (
                         <div key={index}>
                             {userInfo._id === msg.senderId ? <SenderChat  index={index} message={msg.message} details={msg} currentTime={getCurrentTime(msg.createdAt)} /> : <ReceiverChat index={index} previousIndex={index === 0 ? -1 : index - 1} message={msg.message} currentTime={getCurrentTime(msg.createdAt)} />}
                             <div ref={messagesEndRef} />
