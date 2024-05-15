@@ -10,9 +10,11 @@ import { SocketContext } from '../../contexts/SocketContext'
 import { FaUser } from 'react-icons/fa'
 import { IoMdSettings } from 'react-icons/io'
 import { MdLogout } from "react-icons/md";
+import { PiDotsThreeOutlineVerticalBold } from "react-icons/pi";
+import { IoIosRemoveCircle } from "react-icons/io";
 import { Link } from 'react-router-dom'
-import Profile from '../Profile/Profile'
 import { StatusContext } from '../../contexts/AuthContext'
+import MdProfile from '../MdProfile/MdProfile'
 
 function Contacts() {
 
@@ -25,6 +27,8 @@ function Contacts() {
     const [mdContactBar, setMdContactBar] = useState(null)
     const [allContacts, setAllContacts] = useState([])
     const [selection, setSelection] = useState(null);
+    const [userToRemove, setUserToRemove] = useState(null)
+    const [mdShowProfile, setMdShowProfile] = useState(false)
 
     const handleClick = (index, contact) => {
         setSelection(index);
@@ -55,6 +59,10 @@ function Contacts() {
         })
     }, [userInfo])
 
+    useEffect(() => {
+        console.log('REMOVE : ', userToRemove)
+    }, [userToRemove])
+
     const HandleLogout = () => {
         console.log("LOGOUT")
         axios.get('http://localhost:5000/auth/logout').then(() => {
@@ -64,30 +72,50 @@ function Contacts() {
         })
     }
 
+    const HandleRemoveFriend = (contact, userInfo) => {
+        console.log('HANDLE REMOVE FRIEND : HandleRemoveFriend')
+        // console.log("REMOVE FRIEND")
+        // console.log(selection, index)
+        axios.put('http://localhost:5000/user/remove-friend', { details: contact, user: userInfo }).then((response) => {
+            console.log(response.data)
+            setSelection(null)
+        })
+    }
+
+    const HandleSetUserToRemove = (details) => {
+        console.log("CLICKED! HandleSetUserToRemove")
+        setUserToRemove(details)
+        document.getElementById('my_modal_2').showModal()
+    }
+
     useEffect(() => {
         setAllContacts(contact)
     }, [contact])
 
     return (
         <div className={`m-2 w-3/6 p-3 rounded-s-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)]           transition-all ease-in-out duration-700 max-md:w-auto ${messageInfo ? 'max-md:h-20' : 'max-md:h-5/6'}`}>
-            <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null}  transition-all ease-in-out duration-700`}>
-                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+            <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null} transition-all ease-in-out duration-700`}>
+                <span className={`absolute inset-y-0 left-0 flex items-center pl-2 ${mdShowProfile ? 'max-md:hidden' : 'max-md:opacity-100'}`}>
                     <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
                         <CiSearch size={20} />
                     </button>
                 </span>
-                <input type="search" name="q" className="py-2 text-sm text-white bg-[#1B1E1C] rounded-md pl-10 focus:outline-none" placeholder="Search..." autoComplete="off" />
+                <input type="search" name="q" className={`py-2 text-sm text-white bg-[#1B1E1C] rounded-md pl-10 focus:outline-none" `} placeholder="Search..." autoComplete="off" />
+
                 {window.innerWidth <= 768 &&
                     <div className="dropdown dropdown-end absolute inset-y-0 right-0 flex items-center pr-2">
                         <div tabIndex={0} role="button" className="m-1 "><IoReorderThreeOutline size={25} className='font-bold text-emerald-500 active:text-emerald-700' /></div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-[#1B1E1C] rounded-s-md rounded-b-md w-52 mt-44 shadow-[0_3px_10px_rgb(0,0,0,0.4)]">
-                            <li><Link><FaUser />Profile</Link></li>
-                            <li><a><IoMdSettings />Settings</a></li>
-                            <li onClick={HandleLogout}><a><MdLogout />Logout</a></li>
+                            <li onClick={()=>setMdShowProfile(true)} className='text-white'><a><FaUser className='fill-white' />Profile</a></li>
+                            <li className='text-white'><a><IoMdSettings className='fill-white' />Settings</a></li>
+                            <li onClick={HandleLogout} className='text-white'><a><MdLogout className='fill-white' />Logout</a></li>
                         </ul>
                     </div>}
+
+                {mdShowProfile && <MdProfile setMdShowProfile={setMdShowProfile} />}    
+
             </div>
-            {selection!==null && mdContactBar && window.innerWidth <= 768 && <div className={`relative text-gray-600 focus-within:text-gray-400 h-60`}>
+            {selection !== null && mdContactBar && window.innerWidth <= 768 && <div className={`relative text-gray-600 focus-within:text-gray-400 h-60`}>
                 {/* {alert("REAched")} */}
                 <div className='flex'>
                     <div>
@@ -108,9 +136,9 @@ function Contacts() {
             }
             <hr className={`${messageInfo ? 'max-md:hidden' : null}`} />
             <div className='h-2'></div>
-            <div className={`flex flex-col    ${messageInfo ? 'max-md:hidden' : null}`}>
+            <div className={`flex flex-col ${mdShowProfile ? 'hidden' : 'opacity-100'}    ${messageInfo ? 'max-md:hidden' : null}`}>
                 {allContacts && allContacts.map((contact, index) => (
-                    <div className={`w-full h-full flex items-center cursor-pointer justify-between p-2 mt-2 hover:bg-slate-400 hover:bg-opacity-20 rounded-lg ${selection === index ? 'bg-slate-600 bg-opacity-20' : ''}`} key={index} onClick={() => handleClick(index, contact)} >
+                    <div className={`w-full group h-full flex items-center cursor-pointer justify-between p-2 mt-2 hover:bg-slate-400 hover:bg-opacity-20 rounded-lg ${selection === index ? 'bg-slate-600 bg-opacity-20' : ''}`} key={index} onClick={() => handleClick(index, contact)} >
                         <label className='flex items-center'>
                             <div className='relative flex flex-col'>
                                 <img src={contact.image} alt="" className='w-10 h-10 rounded-full' />
@@ -121,6 +149,25 @@ function Contacts() {
                                 <p className='text-xs text-slate-400'>{contact.email}</p>
                             </div>
                         </label>
+
+
+                        <div className={`${selection === index ? 'opacity-100' : 'opacity-0'} dropdown dropdown-end inset-y-0`}>
+                            <div tabIndex={0} role="button" className="m-1"><PiDotsThreeOutlineVerticalBold className='fill-emerald-500 opacity-0 duration-100 group-hover:opacity-100 p-30' /></div>
+                            <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-[#1B1E1C] rounded-s-md rounded-b-md w-52 shadow-[0_3px_10px_rgb(0,0,0,0.4)]">
+                                <li><a onClick={() => HandleSetUserToRemove(contact)}><IoIosRemoveCircle className='fill-red-500' size={20} key={index} />Remove</a></li>
+                            </ul>
+                        </div>
+                        <dialog id="my_modal_2" className="modal" key={index}>
+                            <div className="modal-box">
+                                <h3 className="font-bold text-lg">Do you want to remove this user?</h3>
+                                <form method="dialog" className='flex mt-5 justify-end'>
+                                    <button className='btn bg-red-600 text-black btn-sm rounded-md hover:bg-red-500' key={index} onClick={() => selection == index ? HandleRemoveFriend(contact, userInfo) : null}>Remove</button>
+                                    <div className='mx-1'></div>
+                                    <button className='btn bg-emerald-600 text-black btn-sm rounded-md hover:bg-emerald-500'>Cancel</button>
+                                </form>
+                            </div>
+                        </dialog>
+
                     </div>
                 ))}
             </div>

@@ -110,7 +110,7 @@ const UserSearch = () => {
                 <div className='w-full h-fullrounded-md'>
                     {username ? <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
-                            // console.log("USER iN P: ", user)
+                            console.log('CONT : ',cont)
                             return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
                                 <div className='flex items-center w-full'>
                                     <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
@@ -119,8 +119,8 @@ const UserSearch = () => {
                                         <p className='text-xs text-slate-700'>{user.email}</p>
                                     </div>
                                 </div>
-                                {cont.includes(user) ?
-                                    <p>Added</p>
+                                {cont.some(users => users._id === user._id) ?
+                                    <p className='text-emerald-500 italic opacity-70'>Added</p>
                                     :
                                     <button className='btn end-0 btn-outline btn-sm border-emerald-500 text-emerald-500 ml-5 hover:border-emerald-500 hover:bg-emerald-500 hover:text-black' onClick={() => handleAddFriend(user)}>ADD</button>
                                 }
@@ -136,7 +136,7 @@ const UserSearch = () => {
                     </div>
                         :
                         <div className='flex justify-center mt-5'>
-                            <p className='text-neutral-content'>Search for a user</p>
+                            {!showReq && <p className='text-neutral-content'>Search for a user</p>}
                         </div>}
                 </div>
             </div>}
