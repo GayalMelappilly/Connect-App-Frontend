@@ -4,8 +4,9 @@ import { StatusContext } from '../../contexts/AuthContext'
 import { ContactContext } from '../../contexts/ContactContext'
 import getDate from '../../hooks/getDate'
 import axios from 'axios'
+import { MdKeyboardArrowLeft } from 'react-icons/md'
 
-const MdProfile = ({setMdShowProfile}) => {
+const MdProfile = ({ setMdShowProfile }) => {
 
     const { userInfo } = useContext(UserInfoContext)
     const { status, setStatus } = useContext(StatusContext)
@@ -32,26 +33,27 @@ const MdProfile = ({setMdShowProfile}) => {
     return (
         <div className=''>
             <div className='w-full bg-transparent'>
-                <div className='w-full h-full overflow-y-scroll mt-5'>
-                    <div className='w-full h-full flex items-center justify-between p-2 mt-2 cursor-pointer'>
-                        <div className='flex items-center'>
-                            <div className="avatar">
-                                <div className="w-14 rounded-lg">
-                                    <img src={userInfo.image} />
-                                </div>
-                            </div>
-                            <div className='ml-2 pl-3'>
-                                <h1 className='text-xl text-white'>{userInfo.displayName}</h1>
-                                <p className='text-md text-emerald-500'>{userInfo.email}</p>
+                <div className='flex pl-4'>
+                    <button className='bg-slate-300 h-8 rounded-lg w-8' onClick={() => {
+                        setMdShowProfile(false)
+                    }}><MdKeyboardArrowLeft size={30} className='fill-black mx-auto' /></button>
+                    <h2 className='font-thin text-2xl pl-3'>Profile</h2>
+                </div>
+                <hr className='my-4' />
+                <div className='w-full h-full flex items-center justify-between p-2 overflow-y-scroll mt-4 cursor-pointer'>
+                    <div className='flex items-center h-full'>
+                        <div className="avatar pl-2">
+                            <div className="w-14 rounded-lg">
+                                <img src={userInfo.image} />
                             </div>
                         </div>
-                        {/* <div className='flex items-center'>
-                                <button className='text-sm bg-blue-500 text-white rounded-md px-2 py-1'>View</button>
-                            </div> */}
+                        <div className='ml-2 pl-3'>
+                            <h1 className='text-xl text-white'>{userInfo.displayName}</h1>
+                            <p className='text-md text-emerald-500'>{userInfo.email}</p>
+                        </div>
                     </div>
                 </div>
-                <hr className='my-5 opacity-50'/>
-                <div className='w-fit flex justify-center'>
+                <div className='w-fit px-4 flex justify-center mt-6'>
                     <div className='shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-lg p-2 px-2'>
                         <h1 className='text-white flex justify-center'>Total Contacts</h1>
                         <p className='text-white flex justify-center'>{contactCount}</p>
@@ -62,8 +64,7 @@ const MdProfile = ({setMdShowProfile}) => {
                         <p className='text-white flex justify-center'>{date}</p>
                     </div>
                 </div>
-                <hr className='my-5 opacity-50'/>
-                <div className='relative flex bottom-0 justify-center'>
+                <div className='relative flex bottom-0 justify-center mt-6 px-4'>
                     <button className='text-sm bg-red-700 bottom-0 w-full text-black font-semibold rounded-md px-4 py-2 hover:bg-red-800' onClick={HandleLogout}>Logout</button>
                 </div>
             </div>

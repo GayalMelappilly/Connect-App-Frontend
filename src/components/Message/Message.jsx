@@ -47,7 +47,7 @@ function Message() {
     };
 
     return (
-        <div id='message' className={`w-full bg-opacity-80 m-2 p-5 backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)] transition-all duration-700 ease-in-out ${messageInfo ? 'max-md:h-5/6' : 'max-md:h-20'} max-md:w-auto max-md:rounded-lg`}>
+        <div id='message' className={`w-full dark:bg-opacity-80 bg-slate-100 bg-opacity-80 m-2 p-5 dark:backdrop-blur-sm dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)] transition-all duration-700 ease-in-out ${messageInfo ? 'max-md:h-5/6' : 'max-md:h-20'} max-md:backdrop-blur-none hy max-md:w-auto max-md:rounded-t-none max-md:rounded-b-lg`}>
             {messageInfo ? <div className=''>
                 <div className='absolute overflow-scroll h-96 w-full rounded-lg pr-10 backdrop-blur-sm max-md:h-5/6'>
                     {messages && messages.messages && messages.messages.map((msg, index) => (
@@ -66,7 +66,7 @@ function Message() {
                 :
                 <div className="mt-16    max-md:mt-0 max-md:h-3/6 max-md:absolute">
                     <div className='align-middle max-md:flex'>
-                        <h1 className='pt-20 inset-0 text-white text-6xl peace-sans uppercase flex justify-center          max-md:pt-0 max-md:text-4xl max-md:my-1        dark:text-red-600'>connect</h1>
+                        <h1 className='pt-20 inset-0 text-white text-6xl peace-sans uppercase flex justify-center          max-md:pt-0 max-md:text-4xl max-md:my-1     '>connect</h1>
                         <div className='max-md:mx-8'></div>
                         <p className='mt-5 text-emerald-500 font-thin text-2xl adelia-font flex justify-center             max-md:mt-0 max-md:py-3 max-md:text-sm '>Say it with connect.</p>
                     </div>

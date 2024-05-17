@@ -93,8 +93,8 @@ function Contacts() {
     }, [contact])
 
     return (
-        <div className={`m-2 w-3/6 p-3 rounded-s-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)]           transition-all ease-in-out duration-700 max-md:w-auto ${messageInfo ? 'max-md:h-20' : 'max-md:h-5/6'}`}>
-            <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null} transition-all ease-in-out duration-700`}>
+        <div className={`m-2 w-3/6 p-3 rounded-s-lg bg-opacity-80 bg-center text-white backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)]           transition-all ease-in-out duration-700 max-md:w-auto max-md:rounded-b-none ${messageInfo ? 'max-md:h-20' : 'max-md:h-5/6'}`}>
+            {!mdShowProfile && <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null} transition-all ease-in-out duration-700`}>
                 <span className={`absolute inset-y-0 left-0 flex items-center pl-2 ${mdShowProfile ? 'max-md:hidden' : 'max-md:opacity-100'}`}>
                     <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
                         <CiSearch size={20} />
@@ -106,15 +106,13 @@ function Contacts() {
                     <div className="dropdown dropdown-end absolute inset-y-0 right-0 flex items-center pr-2">
                         <div tabIndex={0} role="button" className="m-1 "><IoReorderThreeOutline size={25} className='font-bold text-emerald-500 active:text-emerald-700' /></div>
                         <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-[#1B1E1C] rounded-s-md rounded-b-md w-52 mt-44 shadow-[0_3px_10px_rgb(0,0,0,0.4)]">
-                            <li onClick={()=>setMdShowProfile(true)} className='text-white'><a><FaUser className='fill-white' />Profile</a></li>
+                            <li onClick={() => setMdShowProfile(true)} className='text-white'><a><FaUser className='fill-white' />Profile</a></li>
                             <li className='text-white'><a><IoMdSettings className='fill-white' />Settings</a></li>
                             <li onClick={HandleLogout} className='text-white'><a><MdLogout className='fill-white' />Logout</a></li>
                         </ul>
                     </div>}
-
-                {mdShowProfile && <MdProfile setMdShowProfile={setMdShowProfile} />}    
-
-            </div>
+            </div>}
+            {mdShowProfile && <MdProfile setMdShowProfile={setMdShowProfile} />}
             {selection !== null && mdContactBar && window.innerWidth <= 768 && <div className={`relative text-gray-600 focus-within:text-gray-400 h-60`}>
                 {/* {alert("REAched")} */}
                 <div className='flex'>
@@ -124,17 +122,33 @@ function Contacts() {
                             setMessageInfo(null)
                         }}><MdKeyboardArrowLeft size={30} className='fill-black mx-auto' /></button>
                     </div>
-                    <div className='mx-1'></div>
+                    <div className='mx-1.5'></div>
                     <img className='rounded-lg w-14 h-14' src={`${mdContactBar.image}`} alt="" />
-                    <div className='mx-1'></div>
+                    <div className='mx-1.5'></div>
                     <div>
                         <h1 className='text-xl text-white'>{mdContactBar.displayName}</h1>
                         <p className='text-emerald-500'>{mdContactBar.email}</p>
                     </div>
+                    <div className={`dropdown dropdown-end inset-y-0 my-auto ml-auto`}>
+                        <div tabIndex={0} role="button" className="m-1"><PiDotsThreeOutlineVerticalBold size={25} className='fill-emerald-500 duration-100 group-hover:opacity-100 p-30' /></div>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-[#1B1E1C] rounded-s-md rounded-b-md w-52 shadow-[0_3px_10px_rgb(0,0,0,0.4)]">
+                            <li><a><IoIosRemoveCircle className='fill-red-500' size={20} />Remove</a></li>
+                        </ul>
+                    </div>
+                    <dialog id="my_modal_2" className="modal">
+                        <div className="modal-box">
+                            <h3 className="font-bold text-lg">Do you want to remove this user?</h3>
+                            <form method="dialog" className='flex mt-5 justify-end'>
+                                <button className='btn bg-red-600 text-black btn-sm rounded-md hover:bg-red-500'>Remove</button>
+                                <div className='mx-1'></div>
+                                <button className='btn bg-emerald-600 text-black btn-sm rounded-md hover:bg-emerald-500'>Cancel</button>
+                            </form>
+                        </div>
+                    </dialog>
                 </div>
             </div>
             }
-            <hr className={`${messageInfo ? 'max-md:hidden' : null}`} />
+            {!mdShowProfile && <hr className={`${messageInfo ? 'max-md:hidden' : null}`} />}
             <div className='h-2'></div>
             <div className={`flex flex-col ${mdShowProfile ? 'hidden' : 'opacity-100'}    ${messageInfo ? 'max-md:hidden' : null}`}>
                 {allContacts && allContacts.map((contact, index) => (

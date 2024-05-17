@@ -14,10 +14,18 @@ function Sidebar() {
     const [profileClick, setProfileClick] = useState(false)
     const [settingsClick, setSettingsClick] = useState(false)
     const [addClick, setAddClick] = useState(false)
-
     const [reqCount, setReqCount] = useState(null)
+    const [darkmode, setDarkmode] = useState(true)
 
     const { userInfo } = useContext(UserInfoContext)
+
+    useEffect(() => {
+        if (darkmode) {
+            document.documentElement.classList.add('dark')
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    })
 
     useEffect(() => {
         axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response) => {
@@ -27,11 +35,12 @@ function Sidebar() {
         })
     })
 
+
     return (
         <div className={`${optionClick ? 'w-7/12' : 'w-1/12'} relative  transition-all ease-in-out duration-200 bg-opacity-80 bg-center m-2 rounded-e-lg p-5  backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)] max-md:w-0 max-lg:hidden`}>
 
             {profileClick && <Profile />}
-            {settingsClick && <Settings />}
+            {settingsClick && <Settings setDarkmode={setDarkmode} darkmode={darkmode} />}
             {addClick && <UserSearch />}
 
             <div className={`grid mx-auto h-full`}>
