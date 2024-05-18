@@ -35,6 +35,8 @@ function Contacts() {
     const [mdShowUserSearch, setMdShowUserSearch] = useState(false)
     const [mdProp, setMdProp] = useState(false)
     const [darkmode, setDarkmode] = useState(true)
+    const [reqCount, setReqCount] = useState(null)
+
 
     const handleClick = (index, contact) => {
         setSelection(index);
@@ -58,6 +60,14 @@ function Contacts() {
             }
         })
     }
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/user/request-list?id=${userInfo._id}`).then((response) => {
+            if (response.data) {
+                setReqCount(response.data.incomingRequests.length)
+            }
+        })
+    })
 
     useEffect(() => {
         if (darkmode) {
@@ -108,7 +118,7 @@ function Contacts() {
 
     return (
         <div className={`m-2 w-3/6 p-3 rounded-s-lg dark:bg-opacity-80 bg-center text-white dark:backdrop-blur-sm dark:bg-transparent dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)] bg-emerald-100 shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] transition-all ease-in-out duration-700 max-md:w-auto max-md:rounded-b-none ${messageInfo ? 'max-md:h-20' : 'max-md:h-5/6'}`}>
-            {!mdProp  && <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null} transition-all ease-in-out duration-700`}>
+            {!mdProp && <div className={`relative text-gray-600 focus-within:text-gray-400            max-md:flex  ${messageInfo ? 'max-md:hidden' : null} transition-all ease-in-out duration-700`}>
                 <span className={`absolute inset-y-0 left-0 flex items-center pl-2 ${mdProp ? 'max-md:hidden' : 'max-md:opacity-100'}`}>
                     <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
                         <CiSearch size={20} />
@@ -131,7 +141,8 @@ function Contacts() {
                                 setMdProp(true)
                                 setMdShowProfile(false)
                                 setMdShowSettings(false)
-                            }} className='text-white'><a><FaUserFriends className='fill-white' />Add Friend</a></li>
+                            }} className='text-white'><a><FaUserFriends className='fill-white' />Add Friend {reqCount > 0 && <span className={` transition-all ease-in duration-700 inline-flex items-center justify-center rounded-full text-xs font-bold w-5 h-5 text-white bg-red-600 border-2 border-none  -end-2`}>{reqCount}</span>}</a>
+                            </li>
                             <li onClick={() => {
                                 setMdShowSettings(true)
                                 setMdProp(true)

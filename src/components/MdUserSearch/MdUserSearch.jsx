@@ -91,7 +91,7 @@ const MdUserSearch = ({ setMdShowUserSearch, setMdProp }) => {
                     <input type="search" name="q" className="py-2 text-sm text-emerald-900 dark:text-white bg-transparent opacity-80 rounded-md pl-10 focus:outline-none placeholder-marquee placeholder:text-emerald-900 placeholder:opacity-80 dark:placeholder:text-slate-400" placeholder="Search for user" autoComplete="off" value={username} onChange={(e) => { setUsername(e.target.value) }} />
                 </div>
             </div>
-            <hr />
+            <hr className='border-emerald-900 dark:border-slate-400' />
             <button className='btn btn-sm mt-2 btn-outline text-emerald-900 opacity-90 dark:text-slate-300 hover:bg-emerald-700 hover:border-none hover:text-white dark:hover:text-black' onClick={() => setShowReq(!showReq)}>{showReq ? 'Hide' : 'Friend Requests'}</button>
             {showReq && friendReq && <div>
                 {friendReq.incomingRequests.map((user, index) => {

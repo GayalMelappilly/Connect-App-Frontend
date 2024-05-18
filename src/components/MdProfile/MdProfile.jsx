@@ -40,7 +40,7 @@ const MdProfile = ({ setMdShowProfile, setMdProp }) => {
                     }}><MdKeyboardArrowLeft size={30} className='fill-white dark:fill-black mx-auto' /></button>
                     <h2 className='font-thin text-2xl pl-3 text-emerald-800 dark:text-white'>Profile</h2>
                 </div>
-                <hr className='my-4' />
+                <hr className='my-4 border-emerald-900 dark:border-slate-400' />
                 <div className='w-full h-full flex items-center justify-between p-2 overflow-y-scroll mt-4 cursor-pointer'>
                     <div className='flex items-center h-full'>
                         <div className="avatar pl-2">
