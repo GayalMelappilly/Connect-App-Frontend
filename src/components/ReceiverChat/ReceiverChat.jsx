@@ -5,7 +5,7 @@ const ReceiverChat = (props) => {
     return (
         <div className="w-full">
             <div className="grid" >
-                <div className="flex my-1 pr-40">
+                <div className="flex my-1 pr-40 max-md:pr-20">
                     <div className="grid">
                         <div className="dark:bg-emerald-600 flex bg-zinc-800 rounded-se-md rounded-b-md shadow-[0px_3px_10px_rgb(0,0,0,0.4)]">
                             <div className='px-3.5 py-2'>

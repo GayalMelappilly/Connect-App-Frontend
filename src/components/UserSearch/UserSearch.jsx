@@ -5,6 +5,8 @@ import { IoIosCheckmark } from "react-icons/io";
 import { IoIosClose } from "react-icons/io";
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 import { ContactContext } from '../../contexts/ContactContext';
+import FriendReq from '../FriendReq/FriendReq';
+import UserSearchList from '../UserSearchList/UserSearchList';
 
 const UserSearch = () => {
 
@@ -40,38 +42,6 @@ const UserSearch = () => {
         })
     }, [])
 
-    const handleAddFriend = (user) => {
-        axios.post(`http://localhost:5000/user/add-friend`, { senderDetails: userInfo, receiverDetails: user }).then((response) => {
-            console.log("ADDED : ", response.data)
-        })
-    }
-
-    const handleAccept = (user) => {
-        axios.put('http://localhost:5000/user/req-accept', { reqFrom: user, reqTo: userInfo }).then((response) => {
-            setContact(response.data.contacts)
-            setFriendReq(response.data)
-        })
-    }
-
-    const handleDecline = (user) => {
-        axios.put('http://localhost:5000/user/req-decline', { reqFrom: user, reqTo: userInfo }).then((response) => {
-            console.log("DECLINED : ", response.data)
-            setFriendReq(response.data)
-        })
-    }
-
-    const handleInvite = (username) => {
-        console.log('USERNAME ', username)
-        if (username.includes('@gmail.com')) {
-            setEmailCheck(true)
-            axios.post('http://localhost:5000/user/invite-user', { email: username, user: userInfo }).then((response) => {
-                console.log("INVITE SUCCESSFULLY : ", response.data)
-            })
-        } else {
-            setEmailCheck(false)
-        }
-    }
-
     return (
         <div className='absolute w-11/12'>
             <div className="relative text-gray-600 focus-within:text-gray-400 ">
@@ -85,20 +55,13 @@ const UserSearch = () => {
             <hr />
             <button className='btn btn-sm mt-2 btn-outline text-emerald-900 opacity-90 dark:text-slate-300 hover:bg-emerald-700 hover:border-none hover:text-white dark:hover:text-black' onClick={() => setShowReq(!showReq)}>{showReq ? 'Hide' : 'Friend Requests'}</button>
             {showReq && friendReq && <div>
-                {friendReq.incomingRequests.map((user, index) => {
-                    return <div className='w-full h-full flex items-center justify-between p-2 mt-2' key={index}>
-                        <div className='flex items-center'>
-                            <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
-                            <div className='ml-2'>
-                                <h1 className='text-sm text-black dark:text-white'>{user.displayName}</h1>
-                                <p className='text-xs text-emerald-500'>{user.email}</p>
-                            </div>
-                            <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} ml-5`}>
-                                <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-emerald-500   hover:bg-emerald-500 hover:text-black' onClick={() => handleAccept(user)} />
-                                <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={() => handleDecline(user)} />
-                            </div>
-                        </div>
-                    </div>
+                {friendReq.incomingRequests.map((user) => {
+                    return <FriendReq
+                        user={user}
+                        userInfo={userInfo}
+                        setContact={setContact}
+                        setFriendReq={setFriendReq}
+                    />
                 })}
                 {showReq && !friendReq &&
                     <div>
@@ -106,40 +69,16 @@ const UserSearch = () => {
                     </div>
                 }
             </div>}
-            {user && <div className='absolute w-full'>
-                <div className='w-full h-fullrounded-md'>
-                    {username ? <div className='w-full h-full overflow-y-scroll mt-5'>
-                        {user.map((user, index) => {
-                            console.log('CONT : ',cont)
-                            return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
-                                <div className='flex items-center w-full'>
-                                    <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
-                                    <div className='ml-2'>
-                                        <h1 className='text-sm text-black dark:text-white'>{user.displayName}</h1>
-                                        <p className='text-xs text-slate-700'>{user.email}</p>
-                                    </div>
-                                </div>
-                                {cont.some(users => users._id === user._id) ?
-                                    <p className='text-emerald-900 dark:text-emerald-500 italic opacity-70'>Added</p>
-                                    :
-                                    <button className='btn end-0 btn-outline btn-sm border-emerald-600 text-emerald-600 hover:border-emerald-500 hover:bg-emerald-500  dark:border-emerald-500 dark:text-emerald-500 ml-5 dark:hover:border-emerald-500 dark:hover:bg-emerald-500 dark:hover:text-black' onClick={() => handleAddFriend(user)}>ADD</button>
-                                }
-                            </div>
-                        })}
-                        {user.length === 0 && <div>
-                            <p className='flex justify-center text-neutral-content'>User does not exist</p>
-                            {emailCheck ? null : <p className='flex justify-center mt-2 text-red-400'>Invalid gmail address</p>}
-                            <div className='flex justify-center'>
-                                <button className='flex justify-center bg-emerald-500 text-black hover:bg-emerald-700 btn btn-sm w-3/6 rounded-md mt-5' onClick={() => handleInvite(username)}>Invite Friend</button>
-                            </div>
-                        </div>}
-                    </div>
-                        :
-                        <div className='flex justify-center mt-5'>
-                            {!showReq && <p className='text-emerald-900 opacity-70 dark:text-neutral-content'>Search for a user</p>}
-                        </div>}
-                </div>
-            </div>}
+            {user &&  
+            <UserSearchList
+                user={user}
+                cont={cont}
+                userInfo={userInfo}
+                emailCheck={emailCheck}
+                username={username}
+                showReq={showReq}
+                setEmailCheck={setEmailCheck}
+            />}
         </div>
     )
 }

@@ -26,7 +26,7 @@ const SenderChat = (props) => {
 
     return (
         <div className="w-full">
-            <div className="flex justify-end pl-40">
+            <div className="flex justify-end pl-40 max-md:pl-20">
                 <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)}>
                     <div className="flex mb-2 relative">
                         <div className="shadow-[0_3px_10px_rgb(0,0,0,0.4)] dark:bg-transparent bg-emerald-200 rounded-b-md rounded-ss-md flex">
