@@ -41,8 +41,8 @@ const Profile = () => {
                                 </div>
                             </div>
                             <div className='ml-2 pl-3'>
-                                <h1 className='text-xl text-white'>{userInfo.displayName}</h1>
-                                <p className='text-md text-emerald-500'>{userInfo.email}</p>
+                                <h1 className='text-xl text-gray-700 dark:text-white'>{userInfo.displayName}</h1>
+                                <p className='text-md text-emerald-800 dark:text-emerald-800'>{userInfo.email}</p>
                             </div>
                         </div>
                         {/* <div className='flex items-center'>
@@ -53,18 +53,18 @@ const Profile = () => {
                 <hr className='my-5 opacity-50'/>
                 <div className='w-fit flex justify-center'>
                     <div className='shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-lg p-2 px-2'>
-                        <h1 className='text-white flex justify-center'>Total Contacts</h1>
-                        <p className='text-white flex justify-center'>{contactCount}</p>
+                        <h1 className='text-emerald-950 dark:text-white flex justify-center'>Total Contacts</h1>
+                        <p className='text-emerald-950 dark:text-white flex justify-center'>{contactCount}</p>
                     </div>
                     <div className='mx-1'></div>
                     <div className='shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-lg p-2 px-4'>
-                        <h1 className='text-white flex justify-center'>Joined on</h1>
-                        <p className='text-white flex justify-center'>{date}</p>
+                        <h1 className='text-emerald-950 dark:text-white flex justify-center'>Joined on</h1>
+                        <p className='text-emerald-950 dark:text-white flex justify-center'>{date}</p>
                     </div>
                 </div>
                 <hr className='my-5 opacity-50'/>
                 <div className='relative flex bottom-0 justify-center'>
-                    <button className='text-sm bg-red-700 bottom-0 w-full text-black font-semibold rounded-md px-4 py-2 hover:bg-red-800' onClick={HandleLogout}>Logout</button>
+                    <button className='text-sm bg-red-500 dark:bg-red-700 bottom-0 w-full text-black font-semibold rounded-md px-4 py-2 hover:bg-red-800' onClick={HandleLogout}>Logout</button>
                 </div>
             </div>
         </div>

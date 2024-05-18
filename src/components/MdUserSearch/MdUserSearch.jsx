@@ -5,8 +5,9 @@ import { IoIosCheckmark } from "react-icons/io";
 import { IoIosClose } from "react-icons/io";
 import { UserInfoContext } from '../../contexts/UserInfoContext'
 import { ContactContext } from '../../contexts/ContactContext';
+import { MdKeyboardArrowLeft } from 'react-icons/md';
 
-const UserSearch = () => {
+const MdUserSearch = ({ setMdShowUserSearch, setMdProp }) => {
 
     const [username, setUsername] = useState('')
     const [friendReq, setFriendReq] = useState(null)
@@ -73,14 +74,22 @@ const UserSearch = () => {
     }
 
     return (
-        <div className='absolute w-11/12'>
-            <div className="relative text-gray-600 focus-within:text-gray-400 ">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-2">
-                    <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
-                        <CiSearch size={20} className='fill-emerald-900 dark:fill-slate-500' />
-                    </button>
-                </span>
-                <input type="search" name="q" className="py-2 text-sm text-emerald-900 dark:text-white bg-transparent opacity-80 rounded-md pl-10 focus:outline-none placeholder-marquee placeholder:text-emerald-900 placeholder:opacity-80 dark:placeholder:text-slate-400" placeholder="Search for user" autoComplete="off" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+        <div className='absolute w-10/12 px-5 pt-2'>
+            <div className='flex pl-2'>
+                <div className='absolute -mx-6'>
+                    <button className='bg-emerald-900 dark:bg-slate-300 h-8 rounded-lg w-8' onClick={() => {
+                        setMdShowUserSearch(false)
+                        setMdProp(false)
+                    }}><MdKeyboardArrowLeft size={30} className='fill-white dark:fill-black mx-auto' /></button>
+                </div>
+                <div className="relative text-gray-600 focus-within:text-gray-400 ml-2 mb-1">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                        <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
+                            <CiSearch size={20} className='fill-emerald-900 dark:fill-slate-500' />
+                        </button>
+                    </span>
+                    <input type="search" name="q" className="py-2 text-sm text-emerald-900 dark:text-white bg-transparent opacity-80 rounded-md pl-10 focus:outline-none placeholder-marquee placeholder:text-emerald-900 placeholder:opacity-80 dark:placeholder:text-slate-400" placeholder="Search for user" autoComplete="off" value={username} onChange={(e) => { setUsername(e.target.value) }} />
+                </div>
             </div>
             <hr />
             <button className='btn btn-sm mt-2 btn-outline text-emerald-900 opacity-90 dark:text-slate-300 hover:bg-emerald-700 hover:border-none hover:text-white dark:hover:text-black' onClick={() => setShowReq(!showReq)}>{showReq ? 'Hide' : 'Friend Requests'}</button>
@@ -110,7 +119,7 @@ const UserSearch = () => {
                 <div className='w-full h-fullrounded-md'>
                     {username ? <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
-                            console.log('CONT : ',cont)
+                            console.log('CONT : ', cont)
                             return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
                                 <div className='flex items-center w-full'>
                                     <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
@@ -144,4 +153,4 @@ const UserSearch = () => {
     )
 }
 
-export default UserSearch
+export default MdUserSearch

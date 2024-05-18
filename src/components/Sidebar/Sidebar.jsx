@@ -37,7 +37,7 @@ function Sidebar() {
 
 
     return (
-        <div className={`${optionClick ? 'w-7/12' : 'w-1/12'} relative  transition-all ease-in-out duration-200 bg-opacity-80 bg-center m-2 rounded-e-lg p-5  backdrop-blur-sm shadow-[0_3px_10px_rgb(0,0,0,0.4)] max-md:w-0 max-lg:hidden`}>
+        <div className={`${optionClick ? 'w-7/12' : 'w-1/12'} relative  transition-all ease-in-out duration-200 dark:bg-opacity-80 dark:bg-transparent bg-emerald-100 shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] bg-center m-2 rounded-e-lg p-5  dark:backdrop-blur-sm dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)] max-md:w-0 max-lg:hidden`}>
 
             {profileClick && <Profile />}
             {settingsClick && <Settings setDarkmode={setDarkmode} darkmode={darkmode} />}
@@ -46,7 +46,7 @@ function Sidebar() {
             <div className={`grid mx-auto h-full`}>
 
                 <div className={`${optionClick ? 'opacity-100 cursor-pointer' : 'opacity-0'} transition-all ease-in-out duration-100 right-4 absolute`}>
-                    <BsArrowRightSquareFill size={25} className='fill-slate-200' onClick={() => {
+                    <BsArrowRightSquareFill size={25} className='fill-emerald-900 dark:fill-slate-200' onClick={() => {
                         setOptionClick(false)
                         setProfileClick(false)
                         setSettingsClick(false)
@@ -60,7 +60,7 @@ function Sidebar() {
                     setAddClick(false)
                     setSettingsClick(false)
                 }}>
-                    <FaUser size={50} color='white' className='transition-all ease-in-out duration-100 cursor-pointer m-auto' />
+                    <FaUser size={50} className='fill-emerald-700 dark:fill-white transition-all ease-in-out duration-100 cursor-pointer m-auto' />
                 </div>
 
                 <div className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} relative my-auto`} onClick={() => {
@@ -69,7 +69,7 @@ function Sidebar() {
                     setAddClick(false)
                     setProfileClick(false)
                 }}>
-                    <IoMdSettings size={50} color='white' className='transition-all ease-in-out duration-100 cursor-pointer m-auto' />
+                    <IoMdSettings size={50} color='white' className='fill-emerald-700 dark:fill-white transition-all ease-in-out duration-100 cursor-pointer m-auto' />
                 </div>
 
                 <div className={`${optionClick ? 'opacity-0 pointer-events-none' : 'opacity-100'} relative my-auto`} onClick={() => {
@@ -78,7 +78,7 @@ function Sidebar() {
                     setProfileClick(false)
                     setSettingsClick(false)
                 }}>
-                    <FaUserFriends size={50} color='white' className='transition-all ease-in-out duration-100 cursor-pointer m-auto' />
+                    <FaUserFriends size={50} className='fill-emerald-700 dark:fill-white transition-all ease-in-out duration-100 cursor-pointer m-auto' />
                     {reqCount>0 && <div className={`${optionClick ? 'opacity-0' : 'opacity-100 cursor-pointer'} transition-all ease-in duration-700 absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-600 border-2 border-none rounded-lg -top-2 -end-2`}>{reqCount}</div>}
                 </div>
 

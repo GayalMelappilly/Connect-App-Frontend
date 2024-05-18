@@ -6,7 +6,7 @@ import getDate from '../../hooks/getDate'
 import axios from 'axios'
 import { MdKeyboardArrowLeft } from 'react-icons/md'
 
-const MdProfile = ({ setMdShowProfile }) => {
+const MdProfile = ({ setMdShowProfile, setMdProp }) => {
 
     const { userInfo } = useContext(UserInfoContext)
     const { status, setStatus } = useContext(StatusContext)
@@ -33,11 +33,12 @@ const MdProfile = ({ setMdShowProfile }) => {
     return (
         <div className=''>
             <div className='w-full bg-transparent'>
-                <div className='flex pl-4'>
-                    <button className='bg-slate-300 h-8 rounded-lg w-8' onClick={() => {
+                <div className='flex pl-4 pt-2'>
+                    <button className='bg-emerald-900 dark:bg-slate-300 h-8 rounded-lg w-8' onClick={() => {
                         setMdShowProfile(false)
-                    }}><MdKeyboardArrowLeft size={30} className='fill-black mx-auto' /></button>
-                    <h2 className='font-thin text-2xl pl-3'>Profile</h2>
+                        setMdProp(false)
+                    }}><MdKeyboardArrowLeft size={30} className='fill-white dark:fill-black mx-auto' /></button>
+                    <h2 className='font-thin text-2xl pl-3 text-emerald-800 dark:text-white'>Profile</h2>
                 </div>
                 <hr className='my-4' />
                 <div className='w-full h-full flex items-center justify-between p-2 overflow-y-scroll mt-4 cursor-pointer'>
@@ -48,20 +49,20 @@ const MdProfile = ({ setMdShowProfile }) => {
                             </div>
                         </div>
                         <div className='ml-2 pl-3'>
-                            <h1 className='text-xl text-white'>{userInfo.displayName}</h1>
-                            <p className='text-md text-emerald-500'>{userInfo.email}</p>
+                            <h1 className='text-xl text-gray-700 dark:text-white'>{userInfo.displayName}</h1>
+                            <p className='text-md text-emerald-800 dark:text-emerald-500'>{userInfo.email}</p>
                         </div>
                     </div>
                 </div>
                 <div className='w-fit px-4 flex justify-center mt-6'>
                     <div className='shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-lg p-2 px-2'>
-                        <h1 className='text-white flex justify-center'>Total Contacts</h1>
-                        <p className='text-white flex justify-center'>{contactCount}</p>
+                        <h1 className='text-emerald-950 dark:text-white flex justify-center'>Total Contacts</h1>
+                        <p className='text-emerald-950 dark:text-white flex justify-center'>{contactCount}</p>
                     </div>
                     <div className='mx-1'></div>
                     <div className='shadow-[0_3px_10px_rgb(0,0,0,0.4)] rounded-lg p-2 px-4'>
-                        <h1 className='text-white flex justify-center'>Joined on</h1>
-                        <p className='text-white flex justify-center'>{date}</p>
+                        <h1 className='text-emerald-950 dark:text-white flex justify-center'>Joined on</h1>
+                        <p className='text-emerald-950 dark:text-white flex justify-center'>{date}</p>
                     </div>
                 </div>
                 <div className='relative flex bottom-0 justify-center mt-6 px-4'>
