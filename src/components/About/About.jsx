@@ -12,7 +12,7 @@ function About() {
         <h1 className='text-4xl text-white peace-sans'>Get started</h1>
         <p className='text-white text-xl creato-display-font font max-sm:text-base mt-4'>Dive into a new era of communication with Connect – the ultimate platform for effortless connection via email IDs. Simplify your messaging experience by consolidating all your conversations in one intuitive interface. Whether you're catching up with friends or collaborating with colleagues, Connect ensures seamless interactions every step of the way. Join us on this journey to revolutionize communication – get started with Connect today and experience the difference firsthand.</p>
         <div className='flex mx-12 mt-2 justify-center'>
-          <Link to={'/signup'}><button className='border-slate-100 border-2 text-white text-xl p-1 px-14 py-2 peace-sans rounded-xl mt-5   hover:bg-white hover:text-black'>SIGNUP</button></Link>
+          <Link to={'/signup'}><button className='border-yellow-100 border-2 text-yellow-100 text-xl p-1 px-14 py-2 awelier font-bold tracking-widest rounded-xl mt-5   hover:bg-yellow-100 hover:text-black'>SIGNUP</button></Link>
         </div>
       </div>
     </div>

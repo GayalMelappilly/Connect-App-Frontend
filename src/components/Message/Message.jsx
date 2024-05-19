@@ -58,17 +58,17 @@ function Message() {
                     ))}
                 </div>
                 <div className='w-full h-auto absolute bottom-4 flex'>
-                    <input type="search" name="q" className="py-2 w-8/12 text-sm dark:text-white text-black bg-transparent pl-10 focus:outline-none rounded-md placeholder:text-gray-800 placeholder:text-opacity-80 dark:placeholder:text-white dark:placeholder:text-opacity-30 shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)]           max-md:w-9/12 max-md:pl-5" placeholder="Message" autoComplete='off' value={text} onChange={(e) => { setText(e.target.value) }} />
+                    <input type="search" name="q" className="py-2 w-8/12 text-sm dark:text-white text-black bg-transparent pl-10 focus:outline-none rounded-md placeholder:text-gray-800 placeholder:text-opacity-80 dark:placeholder:text-white dark:placeholder:text-opacity-30 shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)]     max-sm:w-8/12      max-md:w-9/12 max-md:pl-5" placeholder="Message" autoComplete='off' value={text} onChange={(e) => { setText(e.target.value) }} />
                     <div className='px-2    max-md:px-1'></div>
-                    <button className='py-2 w-3/12 text-sm dark:text-emerald-500 text-gray-800 bg-emerald-400 dark:bg-transparent  px-12 focus:outline-none focus:text-gray-900 rounded-md shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)]            max-md:p-3' onClick={handleSend}>{window.innerWidth <= 768 ? <AiOutlineSend className='fill-emerald-500' /> : 'Send'}</button>
+                    <button className='py-2 w-3/12 text-sm dark:text-emerald-500 text-gray-800 bg-emerald-400 dark:bg-transparent  px-12 focus:outline-none focus:text-gray-900 rounded-md shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)]       max-sm:ml-2  max-md:w-2/12 max-md:p-3' onClick={handleSend}>{window.innerWidth <= 768 ? <AiOutlineSend className='fill-emerald-500 mx-auto' /> : 'Send'}</button>
                 </div>
             </div>
                 :
-                <div className="mt-16    max-md:mt-0 max-md:h-3/6 max-md:absolute">
-                    <div className='align-middle max-md:flex'>
-                        <h1 className='pt-20 inset-0 dark:text-white text-emerald-500 text-6xl peace-sans uppercase flex justify-center          max-md:pt-0 max-md:text-4xl max-md:my-1     '>connect</h1>
-                        <div className='max-md:mx-8'></div>
-                        <p className='mt-5 dark:text-emerald-500 text-gray-800  font-thin text-2xl adelia-font flex justify-center             max-md:mt-0 max-md:py-3 max-md:text-sm '>Say it with connect.</p>
+                <div className="mt-16   max-md:w-full max-md:mt-0 max-md:h-3/6 max-md:absolute">
+                    <div className='align-middle max-md:flex max-md:w-11/12 max-md:justify-between'>
+                        <h1 className='pt-20 inset-0 dark:text-white text-emerald-500 text-6xl peace-sans uppercase flex justify-center    max-sm:text-2xl max-sm:py-1     max-md:pt-0 max-md:text-4xl max-md:my-1'>connect</h1>
+                        {/* <div className=''></div> */}
+                        <p className='mt-5 dark:text-emerald-500 text-gray-800  font-thin text-2xl adelia-font flex relative justify-center     max-sm:text-xs         max-md:mt-0 max-md:py-3 max-md:text-sm'>Say it with connect.</p>
                     </div>
                 </div>}
         </div>

@@ -42,7 +42,7 @@ const Profile = () => {
                             </div>
                             <div className='ml-2 pl-3'>
                                 <h1 className='text-xl text-gray-700 dark:text-white'>{userInfo.displayName}</h1>
-                                <p className='text-md text-emerald-800 dark:text-emerald-800'>{userInfo.email}</p>
+                                <p className='text-md text-emerald-800 dark:text-emerald-500'>{userInfo.email}</p>
                             </div>
                         </div>
                         {/* <div className='flex items-center'>

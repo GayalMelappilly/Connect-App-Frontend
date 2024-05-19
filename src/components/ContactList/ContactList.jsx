@@ -46,7 +46,7 @@ const ContactList = ({ contact, selection, onlineUsers, userToRemove, userInfo, 
         <div className={`w-full group h-full flex items-center cursor-pointer justify-between p-2 mt-2 hover:bg-slate-400 hover:bg-opacity-20 rounded-lg ${selection === contact._id ? 'bg-slate-600 bg-opacity-20' : ''}`} key={contact._id} onClick={() => handleClick(contact._id, contact)} >
             <label className='flex items-center'>
                 <div className='relative flex flex-col'>
-                    <img src={contact.image} alt="" className='w-10 h-10 rounded-full' />
+                    <img src={contact.image} alt="" className='min-w-10 max-w-10 max-h-10 min-h-10 rounded-full' />
                     {onlineUsers.includes(contact._id) && <div className={`absolute inline-flex items-center justify-center w-2 h-2 text-xs font-bold text-white bg-green-500 border-2 border-none rounded-full`} key={contact._id}></div>}
                 </div>
                 <div className='ml-2'>

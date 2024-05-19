@@ -1,7 +1,7 @@
 import React from 'react'
 import { IoIosCheckmark, IoIosClose } from 'react-icons/io'
 
-const FriendReq = ({user, userInfo, setContact, setFriendReq}) => {
+const FriendReq = ({user, userInfo, setContact, setFriendReq, friendReq}) => {
 
     const handleAccept = (user) => {
         axios.put('http://localhost:5000/user/req-accept', { reqFrom: user, reqTo: userInfo }).then((response) => {
@@ -18,7 +18,7 @@ const FriendReq = ({user, userInfo, setContact, setFriendReq}) => {
     }
 
     return (
-        <div className='w-full h-full flex items-center justify-between p-2 mt-2' key={index}>
+        <div className='w-full h-full flex items-center justify-between p-2 mt-2' key={user._id}>
             <div className='flex items-center'>
                 <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
                 <div className='ml-2'>

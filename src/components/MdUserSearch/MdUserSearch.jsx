@@ -74,15 +74,15 @@ const MdUserSearch = ({ setMdShowUserSearch, setMdProp }) => {
     }
 
     return (
-        <div className='absolute w-10/12 px-5 pt-2'>
-            <div className='flex pl-2'>
-                <div className='absolute -mx-6'>
+        <div className='absolute w-10/12 px-5 pt-2   max-lg:px-1'>
+            <div className='flex pl-2  max-lg:pl-0'>
+                <div className='absolute -mx-6   max-lg:mx-0'>
                     <button className='bg-emerald-900 dark:bg-slate-300 h-8 rounded-lg w-8' onClick={() => {
                         setMdShowUserSearch(false)
                         setMdProp(false)
                     }}><MdKeyboardArrowLeft size={30} className='fill-white dark:fill-black mx-auto' /></button>
                 </div>
-                <div className="relative text-gray-600 focus-within:text-gray-400 ml-2 mb-1">
+                <div className="relative text-gray-600 focus-within:text-gray-400 ml-2 mb-1   max-lg:ml-6">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-2">
                         <button type="submit" className="p-1 focus:outline-none focus:shadow-outline">
                             <CiSearch size={20} className='fill-emerald-900 dark:fill-slate-500' />
@@ -102,7 +102,7 @@ const MdUserSearch = ({ setMdShowUserSearch, setMdProp }) => {
                                 <h1 className='text-sm text-black dark:text-white'>{user.displayName}</h1>
                                 <p className='text-xs text-emerald-500'>{user.email}</p>
                             </div>
-                            <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} ml-5`}>
+                            <div className={` ${friendReq ? 'cursor-pointer' : 'pointer-events-none'} flex ml-5`}>
                                 <IoIosCheckmark size={20} className='btn h-2 btn-sm btn-square btn-ghost border-slate-400 rounded-xl text-emerald-500   hover:bg-emerald-500 hover:text-black' onClick={() => handleAccept(user)} />
                                 <IoIosClose size={20} className='btn btn-sm btn-square btn-ghost border-slate-400 rounded-xl ml-2 text-red-700   hover:bg-red-700 hover:text-black' onClick={() => handleDecline(user)} />
                             </div>
@@ -120,7 +120,7 @@ const MdUserSearch = ({ setMdShowUserSearch, setMdProp }) => {
                     {username ? <div className='w-full h-full overflow-y-scroll mt-5'>
                         {user.map((user, index) => {
                             console.log('CONT : ', cont)
-                            return <div className='w-full h-full flex items-center justify-between p-2 mt-2cursor-pointer' key={index}>
+                            return <div className='w-full h-full flex items-center justify-between p-2 cursor-pointer  max-lg:py-2 max-lg:p-0' key={index}>
                                 <div className='flex items-center w-full'>
                                     <img src={user.image} alt="" className='w-10 h-10 rounded-full' />
                                     <div className='ml-2'>

@@ -37,7 +37,7 @@ function Sidebar() {
 
 
     return (
-        <div className={`${optionClick ? 'w-7/12' : 'w-1/12'} relative  transition-all ease-in-out duration-200 dark:bg-opacity-80 dark:bg-transparent bg-emerald-100 shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] bg-center m-2 rounded-e-lg p-5  dark:backdrop-blur-sm dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)] max-md:w-0 max-lg:hidden`}>
+        <div className={`${optionClick ? 'w-7/12  max-xl:w-9/12' : 'w-1/12'} relative  transition-all ease-in-out duration-200 dark:bg-opacity-80 dark:bg-transparent bg-emerald-100 shadow-gray-400 shadow-[1px_1px_8px_rgb(0,0,0,0.2)] bg-center m-2 rounded-e-lg p-5  dark:backdrop-blur-sm dark:shadow-[0_3px_10px_rgb(0,0,0,0.4)] max-md:w-0 max-lg:hidden`}>
 
             {profileClick && <Profile />}
             {settingsClick && <Settings setDarkmode={setDarkmode} darkmode={darkmode} />}
